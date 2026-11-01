@@ -1,27 +1,29 @@
 # Python Steps
 
-A phone-first, hand-held Python practice app. One short lesson a day (10 to 15 minutes), small steps, free hints, and every idea linked back to Power Automate. It is published as a private Claude artifact: `[Python Steps artifact link]`.
+A phone-first, hand-held Python practice app that teaches Python through the work of an AI builder. Each day is a chapter of a story: you join a small team at a district health office building **Stockwise**, an AI assistant that helps pharmacists avoid stockouts, guided by Zara, the team's lead engineer. It is published as a private Claude artifact: `[Python Steps artifact link]`.
 
-## What is in Week 1: Talking to Python
+## Week 1: The Stockwise story
 
-| Day | Lesson | You can do this afterwards |
-|---|---|---|
-| 1 | Say hello with print() | Show text, read your first errors |
-| 2 | Variables | Store and reuse values |
-| 3 | Numbers and maths | Calculate balances and months of stock, round results |
-| 4 | Working with text | Join, clean and change text |
-| 5 | Mixing text and numbers | Build messages with str() and f-strings |
-| 6 | Reading errors without fear | Read the error type, line and message, fix bugs one at a time |
-| 7 | Mini project: a stock card | A small working program: inputs, calculations, report |
+| Chapter | Title | Python skill | AI-builder skill |
+|---|---|---|---|
+| 1 | Day one at the lab | print() | Read what a model returns before trusting it |
+| 2 | The assistant's memory | Variables | System prompt, model name, temperature |
+| 3 | The token budget | Numbers and maths | Tokens, context window, cost estimates |
+| 4 | Messy messages | Working with text | Cleaning input, length checks, a first guardrail with `in` |
+| 5 | Writing the prompt | f-strings | Prompt templates, multi-line prompts |
+| 6 | The night the bot broke | Reading errors | Debugging a broken assistant |
+| 7 | Launch day | Putting it together | Inputs, maths in code, then a prompt built from the results |
 
-All examples use made-up facilities and numbers. No real or work data.
+Each chapter has a story page (scene, a quote from Zara, a "Builder's notebook" note on why it matters for AI, and a bridge from Power Automate or Copilot Studio), 7 or 8 small steps with Zara's lines, and a closing scene. Stockwise gains a new ability with each chapter.
 
-## How it works
+All people, places and numbers are made up. No real or work data.
 
-- **MiniPy** (`src/minipy.js`) is a small, safe Python interpreter that runs in the page. It has no eval, makes no network calls and needs no installs, so it works on a phone. It covers the beginner subset of Python the lessons use, and its error messages follow CPython 3.13 wording.
-- **Lessons** (`src/lessons.js`) hold each step: the type (run, change, quiz, fill the blank, fix the bug, write it, meet an error), the starting code, the check, two hints, the answer and the explanation.
-- **App** (`src/app.js`, `src/styles.css`) handles the home path, streaks, XP, badges, the code editor with a symbol row, and the optional "Ask Claude" helper. Ask Claude runs on the viewer's own Claude account and sends only the current step and code.
-- **Progress** is saved privately per person in the artifact's store, with a copy on the device as a fallback.
+## Features
+
+- **MiniPy** (`src/minipy.js`): a small, safe Python interpreter that runs in the page. No eval, no network calls, nothing to install. Its error messages follow CPython 3.13 wording.
+- **Step types**: watch it run, change it, quick check, fill the blank, fix the bug, write it, meet an error. Two hints per step, Show answer, and plain-language error help.
+- **Ask Zara**: a chat where you can ask any simple question, from the home screen, from any step, or from the chat button in the header. It knows which step you're on and sees your code. Zara is Claude playing the mentor, running on the viewer's own Claude account. Outside Claude (for example in the offline copy) the chat explains that it needs the Claude link.
+- **Progress**: streaks, XP, levels and badges, saved privately per person in the artifact store, with a copy on the device as a fallback.
 
 ## Build and test
 
@@ -35,4 +37,4 @@ The tests need `python3` (3.13 was used) on the PATH.
 
 ## Adding a week
 
-Add lesson objects to `LESSONS` in `src/lessons.js`, run both test files, rebuild, and republish the same artifact so the link stays the same.
+Add chapter objects to `LESSONS` in `src/lessons.js` (story fields: `scene`, `quote`, `why`, `bridge`, `outro`, `ability`; each step can have a `say` line for Zara). Then run both test files, rebuild, and republish the same artifact so the link stays the same.

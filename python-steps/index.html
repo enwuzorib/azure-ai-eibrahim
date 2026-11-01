@@ -1,9 +1,9 @@
 <title>Python Steps</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Daily, hand-held Python practice on your phone, bridged from Power Automate.">
+<meta name="description" content="Learn Python by building an AI assistant: a daily story-driven practice app for your phone.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
 <style>
 /* Layout: one phone-first column (max 560px). Home shows progress as Python variables on a code
    card above a vertical path of days; each lesson step centres on a ruled, numbered code editor
@@ -36,6 +36,7 @@
   --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --f-story: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -179,7 +180,7 @@ details.how ul { margin: 0 0 12px; padding-left: 20px; display: flex; flex-direc
 .sync.error::before { background: var(--bad); }
 
 /* ---------- lesson */
-.lbar { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; }
+.lbar { display: grid; grid-template-columns: 44px 1fr 44px; gap: 10px; align-items: center; }
 .icon-btn { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); display: grid; place-items: center; cursor: pointer; color: var(--ink); }
 .lbar-title { min-width: 0; }
 .lbar-title strong { display: block; font-family: var(--f-display); font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -187,6 +188,7 @@ details.how ul { margin: 0 0 12px; padding-left: 20px; display: flex; flex-direc
 .dots i { width: 18px; height: 6px; border-radius: 99px; background: var(--line); }
 .dots i.on { background: var(--blue); }
 .dots i.now { background: var(--yellow); }
+.dots i.story { width: 10px; }
 .xp-pill { font-weight: 700; font-size: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .intro { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .bridge { background: var(--blue-soft); border-radius: 12px; padding: 12px 14px; font-size: 16px; }
@@ -300,6 +302,89 @@ textarea.code {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .finish-mark path { stroke-dashoffset: 0; }
 }
+
+/* ---------- story */
+.emblem { display: inline-flex; width: 56px; height: 56px; color: var(--ink); flex: none; }
+.emblem svg { width: 100%; height: 100%; }
+.story { display: flex; flex-direction: column; gap: 18px; }
+.cover {
+  background: var(--blue); color: var(--blue-ink); border-radius: 20px; padding: 20px 18px 22px;
+  display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden;
+}
+.cover::after {
+  content: ""; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%;
+  border: 18px solid var(--yellow); opacity: .18; pointer-events: none;
+}
+.cover .emblem { color: var(--blue-ink); width: 64px; height: 64px; margin-bottom: 6px; }
+.cover .eyebrow { color: inherit; opacity: .85; }
+.cover h1 { font-size: 32px; }
+.cover-skill { font-size: 15px; opacity: .9; }
+.scene { font-family: var(--f-story); font-size: 20px; line-height: 1.6; display: flex; flex-direction: column; gap: 14px; max-width: 34em; }
+.mentor { margin: 0; display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; }
+.mentor blockquote { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 4px 16px 16px 16px; padding: 12px 14px; box-shadow: var(--shadow); }
+.mentor blockquote p { font-family: var(--f-story); font-style: italic; font-size: 19px; line-height: 1.5; }
+.mentor figcaption { margin-top: 6px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  background: var(--yellow); color: var(--yellow-ink); font-family: var(--f-display); font-weight: 800; font-size: 18px;
+  box-shadow: 0 0 0 3px var(--card);
+}
+.notebook { background: var(--note-soft); border-radius: 14px; padding: 12px 14px; font-size: 16px; display: flex; flex-direction: column; gap: 4px; }
+.notebook b { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.say { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: start; }
+.say p { font-family: var(--f-story); font-style: italic; font-size: 18px; line-height: 1.5; background: var(--card); border: 1px solid var(--line); border-radius: 4px 16px 16px 16px; padding: 10px 14px; }
+.today-top { display: flex; align-items: center; gap: 12px; }
+.today .emblem { color: var(--blue-ink); width: 48px; height: 48px; }
+.today .teaser { font-family: var(--f-story); font-size: 18px; line-height: 1.5; }
+.skill-line { font-size: 15px; }
+.abilities { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.abilities li { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; padding: 6px 12px 6px 9px; border-radius: 999px; border: 1px dashed var(--line); color: var(--muted); }
+.abilities li .ico { width: 16px; height: 16px; }
+.abilities li.on { border-style: solid; border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+.ask-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.ask-card strong { font-size: 17px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-btn {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 15px; font-weight: 700; cursor: pointer; text-align: left;
+}
+.chip-btn .ico { width: 18px; height: 18px; }
+.chip-btn.primary { background: var(--blue); color: var(--blue-ink); border-color: var(--blue); }
+.ask-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 15px; }
+.ask-btn { color: var(--blue); }
+.unlocked { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ok); background: var(--ok-soft); padding: 6px 14px; border-radius: 999px; }
+.finish-scene { text-align: left; font-size: 19px; }
+
+/* ---------- Ask Zara chat */
+body.locked { overflow: hidden; }
+.chat {
+  position: fixed; inset: 0; z-index: 30; background: var(--paper); display: flex; flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.chat-inner {
+  width: 100%; max-width: 560px; margin: 0 auto; height: 100%; min-height: 0; display: flex; flex-direction: column;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.chat-head { display: flex; gap: 12px; align-items: center; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.chat-head strong { display: block; font-family: var(--f-display); font-size: 19px; }
+.chat-head .grow span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; }
+.chat-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-block: 16px; -webkit-overflow-scrolling: touch; }
+.msg { max-width: 86%; padding: 10px 14px; border-radius: 16px; font-size: 16px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; min-width: 0; }
+.msg.user { align-self: flex-end; background: var(--blue); color: var(--blue-ink); border-bottom-right-radius: 6px; }
+.msg-row { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; align-items: end; }
+.msg.bot { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 6px; justify-self: start; max-width: 100%; }
+.msg pre { margin: 8px 0; font-family: var(--f-mono); font-size: 14px; background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; white-space: pre-wrap; word-break: break-word; }
+.typing { color: var(--muted); font-style: italic; }
+.chat .chips { padding-bottom: 8px; }
+.chat-form { display: flex; gap: 8px; align-items: flex-end; padding-block: 10px; border-top: 1px solid var(--line); }
+.chat-form textarea {
+  flex: 1 1 auto; min-width: 0; font: 16px/1.4 var(--f-body); border: 1.5px solid var(--line); border-radius: 16px;
+  padding: 11px 14px; background: var(--card); color: var(--ink); resize: none; max-height: 120px; outline: none;
+}
+.chat-form textarea:focus { border-color: var(--blue); }
+.send { width: 48px; height: 48px; flex: none; border-radius: 50%; border: 0; background: var(--blue); color: var(--blue-ink); display: grid; place-items: center; cursor: pointer; }
+.send[disabled] { opacity: .4; cursor: not-allowed; }
+.chat-foot { display: flex; justify-content: center; padding-bottom: 6px; }
 
 </style>
 <main id="app" class="wrap"></main>
@@ -2409,220 +2494,285 @@ textarea.code {
 
 </script>
 <script>
-/* Python Steps: Week 1 lessons ("Talking to Python") and the answer checker.
-   Every example uses made-up facilities and stock numbers. Each step's solution is
-   checked against real Python by tests/test-lessons.mjs. */
+/* Python Steps, Week 1: "The Stockwise Story".
+   You join a small team building Stockwise, an AI assistant for a district health office.
+   Each day is a chapter that teaches one Python skill through the work AI builders do:
+   prompts, settings, tokens and cost, cleaning input, guardrails, templates and debugging.
+   All people, places and numbers are made up. Every solution is checked against real
+   Python by tests/test-lessons.mjs. */
 (function (root) {
   'use strict';
 
   const LESSONS = [
     {
-      id: 'd1', day: 1, minutes: 10, title: 'Say hello with print()',
-      idea: 'print() shows a message on the screen. It is how your program talks to you.',
+      id: 'd1', day: 1, minutes: 10, weekday: 'Monday', emblem: 'talk',
+      title: 'Day one at the lab', skill: 'print()', ability: 'can talk',
+      scene: [
+        'It’s 8:40 on a Monday. The Riverside District health office smells of coffee and printer toner. Somewhere down the corridor, a phone rings and rings.',
+        'Zara, the team’s lead engineer, waves you over to a desk where a laptop is already open. On the screen, a single blinking cursor.',
+        '“Welcome to Stockwise,” she says. “We’re building an AI assistant that helps pharmacists spot stockouts before patients feel them. Every assistant starts the same way. Before it can think, it has to speak.”',
+      ],
+      quote: 'Copilot Studio hides the code. Here, you’ll see every line. That’s where the power is.',
+      why: 'When you build with AI, print() is how you see what a model actually returned before you trust it. Builders print prompts and replies constantly while testing.',
       bridge: 'In a flow, you open the run history to see what a Compose action produced. In Python, print() does that job: it shows a value so you can see it.',
+      outro: 'By lunchtime, Stockwise can talk. Zara closes the laptop. “Tomorrow,” she says, “we teach it to remember.”',
       steps: [
         {
-          type: 'run', title: 'Run your first line',
+          type: 'run', title: 'The first word',
+          say: 'Zara types one line and slides the laptop across. “Tap Run. This is Stockwise saying its first words.”',
           text: 'Tap **Run**. Python reads the line and shows the text inside the quotes.',
-          code: 'print("Hello from Python")',
+          code: 'print("Hello, I am Stockwise.")',
           check: { kind: 'ran' },
           explain: 'print() showed the text between the quotes. The quotes tell Python: this is text, show it exactly as written.',
         },
         {
-          type: 'change', title: 'Make it yours',
-          text: 'Change the words inside the quotes to anything you like, then tap **Run**. Keep both quote marks.',
-          code: 'print("Hello from Python")',
-          check: { kind: 'changed', from: 'Hello from Python' },
-          hints: ['Only change the words between the two quote marks.', 'For example: `print("Good morning")`'],
-          solution: 'print("Good morning")',
-          explain: 'You changed the program and the output changed with it. That loop of change, run, look is how all coding works.',
+          type: 'change', title: 'Give it your voice',
+          say: '“Every assistant needs a personality,” Zara says. “Write its greeting.”',
+          text: 'Change the words inside the quotes to your own greeting, then tap **Run**. Keep both quote marks.',
+          code: 'print("Hello, I am Stockwise.")',
+          check: { kind: 'changed', from: 'Hello, I am Stockwise.' },
+          hints: ['Only change the words between the two quote marks.', 'For example: `print("Good morning! How can I help with stock today?")`'],
+          solution: 'print("Good morning! How can I help with stock today?")',
+          explain: 'You changed the program and the output changed with it. Change, run, look: that loop is how all building works, with or without AI.',
         },
         {
-          type: 'quiz', title: 'What will it show?',
-          text: 'Look at the code. What will Python show?',
+          type: 'quiz', title: 'Zara’s quick test',
+          say: 'Zara grins. “Quick test before coffee.”',
+          text: 'What will this show?',
           code: 'print("2 + 3")',
           options: ['5', '2 + 3', 'An error'], answer: 1,
           explain: 'The quotes make it text, so Python shows it exactly as written. Without quotes, `print(2 + 3)` would do the maths and show 5.',
         },
         {
-          type: 'fix', title: 'Fix the missing quote',
-          text: 'This line has an error. Tap **Run** to see the message, then fix it so it shows: `Stock check complete`',
-          code: 'print("Stock check complete)',
-          check: { kind: 'exact', out: 'Stock check complete' },
+          type: 'fix', title: 'The overnight crash',
+          say: 'A message from the pharmacy team: the assistant crashed overnight. Zara points at the screen. “Run it. Read what Python is telling you.”',
+          text: 'Fix the line so it shows: `Checking stock levels...`',
+          code: 'print("Checking stock levels...)',
+          check: { kind: 'exact', out: 'Checking stock levels...' },
           hints: ['Text needs a quote at the start and at the end.', 'Add `"` just before the closing bracket `)`.'],
-          solution: 'print("Stock check complete")',
-          explain: 'Every piece of text needs an opening and a closing quote. "Unterminated string literal" means the text never ended.',
+          solution: 'print("Checking stock levels...")',
+          explain: 'Every piece of text needs an opening and a closing quote. “Unterminated string literal” means the text never ended.',
         },
         {
           type: 'fix', title: 'Capital letters matter',
-          text: 'Run this, read the error, then fix it so it shows: `Facility open`',
-          code: 'Print("Facility open")',
-          check: { kind: 'exact', out: 'Facility open' },
+          say: '“Second bug,” Zara says. “This one fools everybody once.”',
+          text: 'Run it, read the error, then fix it so it shows: `Stockwise is online`',
+          code: 'Print("Stockwise is online")',
+          check: { kind: 'exact', out: 'Stockwise is online' },
           hints: ['Python sees Print and print as two different names.', 'Change the capital P to a small p.'],
-          solution: 'print("Facility open")',
-          explain: 'Python is case-sensitive. print with a small p is the built-in command. Notice the error even suggested it: "Did you mean: \'print\'?"',
+          solution: 'print("Stockwise is online")',
+          explain: 'Python is case-sensitive. Notice the error even suggested the fix: “Did you mean: \'print\'?”',
         },
         {
-          type: 'write', title: 'Write two lines',
-          text: 'Write two print() lines so the output is exactly:\n`Facility: Riverside PHC`\n`Status: Open`\nLines that start with # are notes for people. Python skips them.',
-          code: '# Write your two lines below\n',
-          check: { kind: 'exact', out: 'Facility: Riverside PHC\nStatus: Open' },
-          hints: ['Each line of output needs its own print().', 'First line: `print("Facility: Riverside PHC")`'],
-          solution: '# Write your two lines below\nprint("Facility: Riverside PHC")\nprint("Status: Open")',
-          explain: 'Each print() starts a new line. Python runs your code from top to bottom, like the actions in a flow.',
+          type: 'write', title: 'A real conversation',
+          say: '“Chat apps show who said what,” Zara explains. “Write the first exchange between a pharmacist and Stockwise.”',
+          text: 'Write two print() lines so the output is exactly:\n`User: Is amoxicillin in stock?`\n`Stockwise: Let me check.`\nLines that start with # are notes for people. Python skips them.',
+          code: '# Write the two lines of the conversation\n',
+          check: { kind: 'exact', out: 'User: Is amoxicillin in stock?\nStockwise: Let me check.' },
+          hints: ['Each line of output needs its own print().', 'First line: `print("User: Is amoxicillin in stock?")`'],
+          solution: '# Write the two lines of the conversation\nprint("User: Is amoxicillin in stock?")\nprint("Stockwise: Let me check.")',
+          explain: 'Each print() starts a new line, and Python runs from top to bottom, like the actions in a flow.',
+        },
+        {
+          type: 'quiz', title: 'Why builders print',
+          say: '“Last question,” Zara says, “and it’s the most important one for AI work.”',
+          text: 'An AI model has just replied. What should a builder do first?',
+          options: ['Send it straight to the user', 'Print it and read it', 'Delete it and ask again'], answer: 1,
+          explain: 'Models can be wrong or strange. Builders always look at what the model actually returned before trusting it, and print() is how you look.',
         },
       ],
     },
     {
-      id: 'd2', day: 2, minutes: 12, title: 'Variables: give a value a name',
-      idea: 'A variable is a name that holds a value, so you can use it again later.',
-      bridge: 'This is Initialize variable in Power Automate. `stock = 120` creates a variable called stock and puts 120 in it. Changing it later is like Set variable.',
+      id: 'd2', day: 2, minutes: 12, weekday: 'Tuesday', emblem: 'boxes',
+      title: 'The assistant’s memory', skill: 'Variables', ability: 'can remember',
+      scene: [
+        'Tuesday. Rain drums on the office roof. Zara is at the whiteboard, drawing three boxes in blue marker.',
+        'She labels them: assistant name. Instructions. Question.',
+        '“An AI app is mostly a set of named boxes,” she says, tapping each one. “The model’s name, its instructions, whatever the user just asked. Python calls these boxes variables. Learn them and you can read almost any AI code.”',
+      ],
+      quote: 'A variable is a label on a box. Change what’s in the box, and everything that uses it changes too.',
+      why: 'Every AI app keeps its pieces in variables: the model name, the system prompt, the user’s question, the settings like temperature. Read them well and AI code stops looking scary.',
+      bridge: 'This is Initialize variable in Power Automate, and the variables you set in a Copilot Studio topic. `question = "..."` creates a variable called question and puts text in it.',
+      outro: '“Now it remembers,” Zara says, wiping the whiteboard clean. “Tomorrow we talk about the thing every AI project runs out of. Money.”',
       steps: [
         {
-          type: 'run', title: 'Meet two variables',
-          text: 'Read the code, then tap **Run**. There are no quotes around facility inside print(), because we want the value, not the word.',
-          code: 'facility = "Riverside PHC"\nstock = 120\nprint(facility)\nprint(stock)',
+          type: 'run', title: 'Two named boxes',
+          say: 'Zara writes the first two boxes in code. “Run it and watch what comes out.”',
+          text: 'Tap **Run**. Notice there are no quotes around the names inside print(). We want what’s in the box, not the label.',
+          code: 'assistant_name = "Stockwise"\nuser_question = "How many ORS sachets are left?"\nprint(assistant_name)\nprint(user_question)',
           check: { kind: 'ran' },
-          explain: 'facility and stock are variables. print(facility) shows the value stored in facility. Text values need quotes. Numbers don\'t.',
+          explain: 'assistant_name and user_question are variables. print(user_question) shows the text stored in it. Text values need quotes. The names don’t.',
         },
         {
-          type: 'change', title: 'Change the stock',
-          text: 'Change 120 to any other number, then tap **Run**.',
-          code: 'facility = "Riverside PHC"\nstock = 120\nprint(facility)\nprint(stock)',
-          check: { kind: 'changed', from: 'Riverside PHC\n120' },
-          hints: ['Only change the number on line 2.', 'For example: `stock = 95`'],
-          solution: 'facility = "Riverside PHC"\nstock = 95\nprint(facility)\nprint(stock)',
-          explain: 'You changed the value in one place and print() showed the new value. That is the point of variables.',
+          type: 'change', title: 'Ask your own question',
+          say: '“Users ask all sorts of things,” Zara says. “Change the question.”',
+          text: 'Change the text in user_question to any question a pharmacist might ask, then tap **Run**.',
+          code: 'assistant_name = "Stockwise"\nuser_question = "How many ORS sachets are left?"\nprint(assistant_name)\nprint(user_question)',
+          check: { kind: 'changed', from: 'Stockwise\nHow many ORS sachets are left?' },
+          hints: ['Only change the text inside the quotes on line 2.', 'For example: `user_question = "When is the next zinc delivery?"`'],
+          solution: 'assistant_name = "Stockwise"\nuser_question = "When is the next zinc delivery?"\nprint(assistant_name)\nprint(user_question)',
+          explain: 'The variable now holds your question, and print() shows the new value. In a real app, this is where the user’s message lands.',
         },
         {
-          type: 'quiz', title: 'Which value wins?',
+          type: 'quiz', title: 'Which question wins?',
+          say: '“Users change their minds,” Zara says. “So do variables.”',
           text: 'What will this show?',
-          code: 'stock = 50\nstock = 80\nprint(stock)',
-          options: ['50', '80', '50 and 80'], answer: 1,
+          code: 'question = "Is zinc in stock?"\nquestion = "Is ACT in stock?"\nprint(question)',
+          options: ['Is zinc in stock?', 'Is ACT in stock?', 'Both questions'], answer: 1,
           explain: 'The second line replaces the value, like Set variable in a flow. A variable holds one value at a time.',
         },
         {
-          type: 'blank', title: 'Fill the blank',
-          text: 'Replace `___` so the program shows: `ORS sachets`',
-          code: 'item = ___\nprint(item)',
-          check: { kind: 'exact', out: 'ORS sachets' },
-          hints: ['It is text, so it needs quotes.', '`item = "ORS sachets"`'],
-          solution: 'item = "ORS sachets"\nprint(item)',
-          explain: 'You stored text in a variable. The quotes go around the value, never around the variable name.',
+          type: 'blank', title: 'The system prompt',
+          say: '“Every AI assistant gets standing instructions,” Zara says. “We call them the system prompt. In Copilot Studio, they’re your agent’s instructions.”',
+          text: 'Replace `___` so the program shows: `You are a helpful stock assistant.`',
+          code: 'system_prompt = ___\nprint(system_prompt)',
+          check: { kind: 'exact', out: 'You are a helpful stock assistant.' },
+          hints: ['It’s text, so it needs quotes.', '`system_prompt = "You are a helpful stock assistant."`'],
+          solution: 'system_prompt = "You are a helpful stock assistant."\nprint(system_prompt)',
+          explain: 'You just wrote your first system prompt and stored it in a variable. Real AI apps start exactly like this.',
         },
         {
           type: 'fix', title: 'Same name, every time',
-          text: 'Run this and read the error. Fix it so it shows: `Hilltop Clinic`',
-          code: 'facility = "Hilltop Clinic"\nprint(Facility)',
-          check: { kind: 'exact', out: 'Hilltop Clinic' },
-          hints: ['Compare the name on line 1 with the name on line 2.', 'Make both names exactly the same: `facility`'],
-          solution: 'facility = "Hilltop Clinic"\nprint(facility)',
-          explain: 'Python treats facility and Facility as different names. The error message suggested the right one.',
+          say: 'The test run fails. Zara raises an eyebrow. “Read the error. It’s practically giving you the answer.”',
+          text: 'Fix it so it shows: `assistant-small`',
+          code: 'model_name = "assistant-small"\nprint(Model_name)',
+          check: { kind: 'exact', out: 'assistant-small' },
+          hints: ['Compare the name on line 1 with the name on line 2.', 'Make both names exactly the same: `model_name`'],
+          solution: 'model_name = "assistant-small"\nprint(model_name)',
+          explain: 'Python treats model_name and Model_name as different names. The error suggested the right one.',
         },
         {
-          type: 'fix', title: 'Quotes or no quotes?',
-          text: 'This shows the word district instead of its value. Fix it so it shows: `Central`',
-          code: 'district = "Central"\nprint("district")',
-          check: { kind: 'exact', out: 'Central' },
-          hints: ['Quotes around a name turn it into plain text.', 'Remove the quotes: `print(district)`'],
-          solution: 'district = "Central"\nprint(district)',
-          explain: 'print("district") shows the text district. print(district) shows what the variable holds.',
+          type: 'fix', title: 'Label or contents?',
+          say: '“This one runs,” Zara says, “but it’s still wrong. Can you see why?”',
+          text: 'This shows the word facility instead of its value. Fix it so it shows: `Riverside PHC`',
+          code: 'facility = "Riverside PHC"\nprint("facility")',
+          check: { kind: 'exact', out: 'Riverside PHC' },
+          hints: ['Quotes around a name turn it into plain text.', 'Remove the quotes: `print(facility)`'],
+          solution: 'facility = "Riverside PHC"\nprint(facility)',
+          explain: 'print("facility") shows the label. print(facility) shows what’s in the box.',
         },
         {
-          type: 'write', title: 'Your own variable',
-          text: 'Create a variable called `item` that holds the text `Amoxicillin`, then print it.',
-          code: '# Create the variable, then print it\n',
-          check: { kind: 'exact', out: 'Amoxicillin', vars: { item: "'Amoxicillin'" } },
-          hints: ['Two lines: one to create the variable, one to print it.', '`item = "Amoxicillin"` then `print(item)`'],
-          solution: '# Create the variable, then print it\nitem = "Amoxicillin"\nprint(item)',
-          explain: 'Create, then use. Python needs the variable to exist before the line that uses it.',
+          type: 'write', title: 'Set the temperature',
+          say: '“One more setting,” Zara says. “Temperature controls how creative a model is. For stock numbers, we want it calm and predictable.”',
+          text: 'Create a variable called `temperature` that holds the number `0.2`, then print it. Numbers don’t need quotes.',
+          code: '# Create the setting, then print it\n',
+          check: { kind: 'exact', out: '0.2', vars: { temperature: '0.2' } },
+          hints: ['Two lines: one creates the variable, one prints it.', '`temperature = 0.2` then `print(temperature)`'],
+          solution: '# Create the setting, then print it\ntemperature = 0.2\nprint(temperature)',
+          explain: 'Low temperature means steadier answers. You’ll see settings like this in every AI tool, including Copilot Studio.',
         },
       ],
     },
     {
-      id: 'd3', day: 3, minutes: 12, title: 'Numbers and maths',
-      idea: 'Python is a calculator that remembers. Use + - * / with numbers and variables.',
+      id: 'd3', day: 3, minutes: 12, weekday: 'Wednesday', emblem: 'gauge',
+      title: 'The token budget', skill: 'Numbers and maths', ability: 'knows its budget',
+      scene: [
+        'Wednesday begins with a spreadsheet and a frown. Finance wants to know what Stockwise will cost before anyone signs off on the launch.',
+        '“Models don’t read words the way we do,” Zara explains, pulling up a chair. “They read small pieces called tokens. We pay for every token, and each model can only hold so many at once. That limit is the context window.”',
+        'She pushes the laptop towards you. “So before we spend a single naira, we do the maths.”',
+      ],
+      quote: 'Every AI project is two problems: making it smart, and making it affordable.',
+      why: 'Models are limited and billed by tokens. A common rule of thumb for English is that one token is about three quarters of a word. Builders estimate tokens and cost with simple maths like this before every launch.',
       bridge: 'Like the add(), sub(), mul() and div() expressions in Power Automate, but written with symbols: + - * /',
+      outro: 'Finance signs off before lunch. “Good work,” Zara says. “Now for the hard part. Real messages from real people are messy.”',
       steps: [
         {
-          type: 'run', title: 'Work out a balance',
+          type: 'run', title: 'Room left in the window',
+          say: '“Our model can read 8,000 tokens at once,” Zara says. “The instructions already use 1,200. How much room is left for the conversation?”',
           text: 'Tap **Run**. Python does the subtraction and stores the answer.',
-          code: 'received = 200\nissued = 75\nbalance = received - issued\nprint(balance)',
+          code: 'context_limit = 8000\nprompt_tokens = 1200\ntokens_left = context_limit - prompt_tokens\nprint(tokens_left)',
           check: { kind: 'ran' },
-          explain: 'Python worked out received - issued and stored the answer in balance. No quotes, because these are numbers.',
+          explain: 'Python worked out context_limit - prompt_tokens and stored the answer in tokens_left. No quotes, because these are numbers. Notice that you write 8000 without the comma.',
         },
         {
           type: 'quiz', title: 'Dividing',
+          say: 'Zara scribbles on a sticky note. “Before we go on, one thing that surprises everyone.”',
           text: 'What will this show?',
           code: 'print(10 / 2)',
           options: ['5', '5.0', '10 / 2'], answer: 1,
-          explain: 'Division with / always gives a decimal number in Python, so the answer is 5.0. That is normal.',
+          explain: 'Division with / always gives a decimal number in Python, so the answer is 5.0. That’s normal.',
         },
         {
-          type: 'blank', title: 'Months of stock',
-          text: 'Months of stock = stock divided by monthly use. Replace `___` with the right symbol. Expected output: `3.0`',
-          code: 'stock = 120\nmonthly_use = 40\nmonths_left = stock ___ monthly_use\nprint(months_left)',
-          check: { kind: 'exact', out: '3.0' },
+          type: 'blank', title: 'Words into tokens',
+          say: '“A pharmacist’s message is about 300 words,” Zara says. “If one token is three quarters of a word, how many tokens is that?”',
+          text: 'Tokens are roughly words divided by 0.75. Replace `___` with the right symbol. Expected output: `400.0`',
+          code: 'words = 300\ntokens = words ___ 0.75\nprint(tokens)',
+          check: { kind: 'exact', out: '400.0' },
           hints: ['Which symbol divides?', 'Use `/`'],
-          solution: 'stock = 120\nmonthly_use = 40\nmonths_left = stock / monthly_use\nprint(months_left)',
-          explain: 'This is months of stock, a number supply chain teams use every day. 120 / 40 = 3.0 months.',
+          solution: 'words = 300\ntokens = words / 0.75\nprint(tokens)',
+          explain: '300 words is about 400 tokens. Estimates like this tell you whether a message fits the context window.',
         },
         {
-          type: 'fix', title: 'Multiply the Python way',
-          text: 'Run it, read the error, and fix it so it shows: `360`',
-          code: 'packs = 120\ncartons = 3\ntotal = packs x cartons\nprint(total)',
-          check: { kind: 'exact', out: '360' },
-          hints: ['Python doesn\'t use x to multiply.', 'Use `*` (the star): `packs * cartons`'],
-          solution: 'packs = 120\ncartons = 3\ntotal = packs * cartons\nprint(total)',
-          explain: 'In Python, * means multiply. The x was read as a variable name, which made the line invalid.',
+          type: 'fix', title: 'Daily usage',
+          say: '“Each question uses about 500 tokens, and we expect 40 questions a day,” Zara says. “Someone wrote the maths. It doesn’t run.”',
+          text: 'Run it, read the error, and fix it so it shows: `20000`',
+          code: 'tokens_per_question = 500\nquestions_per_day = 40\ndaily_tokens = tokens_per_question x questions_per_day\nprint(daily_tokens)',
+          check: { kind: 'exact', out: '20000' },
+          hints: ['Python doesn’t use x to multiply.', 'Use `*` (the star): `tokens_per_question * questions_per_day`'],
+          solution: 'tokens_per_question = 500\nquestions_per_day = 40\ndaily_tokens = tokens_per_question * questions_per_day\nprint(daily_tokens)',
+          explain: 'In Python, * means multiply. The x was read as a name, which made the line invalid.',
         },
         {
           type: 'quiz', title: 'Naming rules',
+          say: '“Quick one,” Zara says. “Which of these would Python accept?”',
           text: 'Which one is a valid variable name?',
-          options: ['monthly use', 'monthly_use', 'monthly-use'], answer: 1,
-          explain: 'Names can\'t have spaces or dashes. Join words with an underscore. A dash would mean minus.',
+          options: ['max tokens', 'max_tokens', 'max-tokens'], answer: 1,
+          explain: 'Names can’t have spaces or dashes. Join words with an underscore. A dash would mean minus. You’ll see max_tokens in real AI code all the time.',
         },
         {
-          type: 'write', title: 'Your first calculation',
-          text: 'A facility received 500 packs of ACT and issued 180. Create `received` and `issued`, work out the balance, and print it.',
-          code: '# Inputs\n\n# Work out and print the balance\n',
-          check: { kind: 'exact', out: '320', vars: { received: '500', issued: '180' } },
-          hints: ['Start with `received = 500` and `issued = 180`.', 'Then `balance = received - issued` and `print(balance)`'],
-          solution: '# Inputs\nreceived = 500\nissued = 180\n# Work out and print the balance\nbalance = received - issued\nprint(balance)',
-          explain: 'Inputs, calculation, output. Most programs are built from those three parts.',
+          type: 'write', title: 'What it costs',
+          say: 'Finance leans over your shoulder. “So what’s the daily bill?”',
+          text: 'Our practice model costs $0.25 per 1,000 tokens (a made-up price). Create `daily_tokens = 20000` and `price_per_1k = 0.25`, then print the daily cost: daily_tokens / 1000 * price_per_1k. Expected: `5.0`',
+          code: '# Usage and price\n\n# Work out and print the daily cost\n',
+          check: { kind: 'exact', out: '5.0', vars: { daily_tokens: '20000', price_per_1k: '0.25' } },
+          hints: ['Start with `daily_tokens = 20000` and `price_per_1k = 0.25`.', 'Then `print(daily_tokens / 1000 * price_per_1k)`'],
+          solution: '# Usage and price\ndaily_tokens = 20000\nprice_per_1k = 0.25\n# Work out and print the daily cost\nprint(daily_tokens / 1000 * price_per_1k)',
+          explain: 'Five dollars a day. Python does * and / from left to right, like a calculator. Finance is happy.',
         },
         {
-          type: 'write', title: 'Round it',
-          text: '`round(value, 1)` keeps 1 decimal place, so round(2.857, 1) gives 2.9. Print the months of stock rounded to 1 decimal place. Expected: `2.9`',
-          code: 'stock = 1000\nmonthly_use = 350\n',
-          check: { kind: 'exact', out: '2.9', mustUse: [['round(']] },
-          hints: ['Divide first: `stock / monthly_use`', '`print(round(stock / monthly_use, 1))`'],
-          solution: 'stock = 1000\nmonthly_use = 350\nmonths_left = round(stock / monthly_use, 1)\nprint(months_left)',
-          explain: 'You can put one calculation inside another. Python works from the inside out: divide first, then round.',
+          type: 'write', title: 'Average per question',
+          say: '“Yesterday’s pilot used 20,000 tokens across 37 questions,” Zara says. “What’s the average? Nobody needs twelve decimal places.”',
+          text: '`round(value, 1)` keeps 1 decimal place. Print the average tokens per question, rounded to 1 decimal place. Expected: `540.5`',
+          code: 'total_tokens = 20000\nquestions = 37\n',
+          check: { kind: 'exact', out: '540.5', mustUse: [['round(']] },
+          hints: ['Divide first: `total_tokens / questions`', '`print(round(total_tokens / questions, 1))`'],
+          solution: 'total_tokens = 20000\nquestions = 37\naverage = round(total_tokens / questions, 1)\nprint(average)',
+          explain: 'Python works from the inside out: divide first, then round. You’ll write lines like this whenever you report on AI usage.',
         },
       ],
     },
     {
-      id: 'd4', day: 4, minutes: 12, title: 'Working with text',
-      idea: 'Text in Python is called a string. You can join it, change its capitals and measure it.',
-      bridge: 'Like the concat(), toUpper(), toLower() and length() expressions in Power Automate.',
+      id: 'd4', day: 4, minutes: 12, weekday: 'Thursday', emblem: 'sparkle',
+      title: 'Messy messages', skill: 'Working with text', ability: 'cleans messages',
+      scene: [
+        'Thursday. Zara opens a log of questions pharmacists typed into the pilot, and you both laugh.',
+        'Some are in shouting capitals. Some have spaces before and after. One just says “   AMOXICILLIN??   ”. Another asks Stockwise for the admin password.',
+        '“Models cope better with clean input,” Zara says, “and some words should never reach the model at all. Today, you’re the filter.”',
+      ],
+      quote: 'Garbage in, garbage out. Clean text in, useful answers out.',
+      why: 'Before text goes to a model, builders clean it: strip spaces, fix the case, check the length, and look for words that need special handling. These checks are called guardrails.',
+      bridge: 'Like the trim(), toUpper(), toLower(), length() and contains() expressions in Power Automate.',
+      outro: '“Clean in, clean out,” Zara says, closing the log. “Tomorrow you write the most important text in any AI app. The prompt.”',
       steps: [
         {
           type: 'run', title: 'Text has tools',
+          say: 'Zara copies one messy message into the code. “Watch what these tools do to it.”',
           text: 'Tap **Run** and compare each line of output with the code.',
-          code: 'item = "zinc tablets"\nprint(item.upper())\nprint(item.title())\nprint(len(item))',
+          code: 'message = "  how many ACT packs are left?  "\nprint(message.strip())\nprint(message.strip().upper())\nprint(len(message))',
           check: { kind: 'ran' },
-          explain: '.upper() and .title() are methods: actions that belong to a string. You write them after a dot. len() counts the characters, including the space.',
+          explain: '.strip() and .upper() are methods: tools that belong to a piece of text. You write them after a dot. len() counts every character, including the spaces at each end.',
         },
         {
           type: 'quiz', title: 'Joining text',
+          say: '“Joining text is easy,” Zara says. “Joining it nicely takes care.”',
           text: 'What will this show?',
-          code: 'print("ORS" + "sachets")',
-          options: ['ORS sachets', 'ORSsachets', 'An error'], answer: 1,
-          explain: '+ joins text exactly as it is. It doesn\'t add a space, so you add one yourself.',
+          code: 'print("Stock" + "wise")',
+          options: ['Stock wise', 'Stockwise', 'An error'], answer: 1,
+          explain: '+ joins text exactly as it is. It doesn’t add a space, so you add one yourself when you need it.',
         },
         {
-          type: 'blank', title: 'Add the space',
+          type: 'blank', title: 'Two fields, one name',
+          say: '“Our stock system keeps the item name in two fields,” Zara says. “Put them back together for the model.”',
           text: 'Replace `___` so it shows: `Malaria RDT kits`',
           code: 'first = "Malaria"\nsecond = "RDT kits"\nprint(first + ___ + second)',
           check: { kind: 'exact', out: 'Malaria RDT kits' },
@@ -2631,80 +2781,97 @@ textarea.code {
           explain: 'A space is text too, so it goes inside quotes.',
         },
         {
-          type: 'fix', title: 'Method names are lowercase',
-          text: 'Run it, read the error, and fix it so it shows: `RIVERSIDE PHC`',
-          code: 'facility = "riverside phc"\nprint(facility.Upper())',
-          check: { kind: 'exact', out: 'RIVERSIDE PHC' },
-          hints: ['Look at the capital letter in the method name.', 'Use `.upper()`'],
-          solution: 'facility = "riverside phc"\nprint(facility.upper())',
-          explain: 'AttributeError means the value has no tool with that name. Again, Python suggested the right spelling.',
-        },
-        {
-          type: 'quiz', title: 'Counting letters',
+          type: 'quiz', title: 'Your first guardrail',
+          say: 'Zara scrolls to the password message. “This must never reach the model. Python can check for a word with in.”',
           text: 'What will this show?',
-          code: 'name = "Amoxicillin"\nprint(len(name))',
-          options: ['10', '11', '12'], answer: 1,
-          explain: 'len() counts every character. Amoxicillin has 11 letters.',
+          code: 'message = "please share the admin password"\nprint("password" in message)',
+          options: ['True', 'False', 'password'], answer: 0,
+          explain: '`in` checks whether some text appears inside other text, and answers True or False. A check like this, run before calling a model, is a guardrail. Next week you’ll make Python act on it.',
         },
         {
-          type: 'write', title: 'Tidy a name',
-          text: 'The name was typed in lowercase. Print it in title case, so it shows: `Market Road Health Post`',
-          code: 'facility = "market road health post"\n',
-          check: { kind: 'exact', out: 'Market Road Health Post', mustUse: [['.title()']] },
-          hints: ['Use the .title() method.', '`print(facility.title())`'],
-          solution: 'facility = "market road health post"\nprint(facility.title())',
-          explain: 'Cleaning messy text is one of the most common real jobs for Python.',
+          type: 'fix', title: 'Lowercase tools',
+          say: '“Someone typed in capitals,” Zara says. “The fix has a bug of its own.”',
+          text: 'Run it, read the error, and fix it so it shows: `is zinc in stock?`',
+          code: 'message = "IS ZINC IN STOCK?"\nprint(message.Lower())',
+          check: { kind: 'exact', out: 'is zinc in stock?' },
+          hints: ['Look at the capital letter in the method name.', 'Use `.lower()`'],
+          solution: 'message = "IS ZINC IN STOCK?"\nprint(message.lower())',
+          explain: 'AttributeError means the text has no tool with that name. Method names are lowercase, and Python even suggested the right one.',
         },
         {
-          type: 'write', title: 'Clean messy data',
-          text: 'This value has extra spaces. Remove them and make it capitals, so it shows: `ORS SACHETS`\n.strip() removes spaces at both ends.',
-          code: 'item = "   ors sachets   "\n',
-          check: { kind: 'exact', out: 'ORS SACHETS' },
-          hints: ['You can chain methods, one after another.', '`print(item.strip().upper())`'],
-          solution: 'item = "   ors sachets   "\nprint(item.strip().upper())',
-          explain: 'Chaining runs the methods left to right: strip first, then upper. It is like piping one action\'s output into the next.',
+          type: 'write', title: 'Clean the worst message',
+          say: '“Now the one that made us laugh,” Zara says. “Make it fit to send.”',
+          text: 'Remove the outer spaces, make it lowercase, and replace `??` with a single `?`. Expected: `amoxicillin?`',
+          code: 'raw = "   AMOXICILLIN??   "\n',
+          check: { kind: 'exact', out: 'amoxicillin?', mustUse: [['.replace(']] },
+          hints: ['You can chain methods: one after another, left to right.', '`print(raw.strip().lower().replace("??", "?"))`'],
+          solution: 'raw = "   AMOXICILLIN??   "\nprint(raw.strip().lower().replace("??", "?"))',
+          explain: 'Chaining runs the methods left to right, like piping one action’s output into the next. This is real input cleaning.',
+        },
+        {
+          type: 'write', title: 'Check the length',
+          say: '“Models have input limits,” Zara says, “so we measure before we send.”',
+          text: 'Print how many characters are in the cleaned question. Expected: `28`',
+          code: 'question = "how many ACT packs are left?"\n',
+          check: { kind: 'exact', out: '28', mustUse: [['len(']] },
+          hints: ['len() counts characters.', '`print(len(question))`'],
+          solution: 'question = "how many ACT packs are left?"\nprint(len(question))',
+          explain: 'Builders check length to stay inside limits and to spot empty or suspiciously long messages.',
         },
       ],
     },
     {
-      id: 'd5', day: 5, minutes: 12, title: 'Mixing text and numbers',
-      idea: 'To put a number inside a message, turn it into text with str(), or use an f-string.',
-      bridge: 'In Power Automate you drop dynamic content into a text box. An f-string does the same: `f"Stock is {stock}"` puts the value of stock into the text.',
+      id: 'd5', day: 5, minutes: 14, weekday: 'Friday', emblem: 'prompt',
+      title: 'Writing the prompt', skill: 'f-strings and prompts', ability: 'writes prompts',
+      scene: [
+        'Friday. A yellow sticky note is waiting on your screen in Zara’s handwriting: “A prompt is just text with blanks.”',
+        '“In Copilot Studio, the platform fills the blanks for you,” she says when she arrives. “In Python, you fill them yourself. It’s more work. But you control every single word the model sees.”',
+        'She sits back. “Today you write the prompt Stockwise will send on launch day.”',
+      ],
+      quote: 'The model only knows what you put in the prompt. Nothing more.',
+      why: 'A prompt template is an f-string. Builders keep the fixed instructions in the text and drop the changing facts (facility, item, numbers) into the blanks. This is the heart of every AI app.',
+      bridge: 'In Copilot Studio and Power Automate you drop dynamic content into a text box. An f-string does the same: `f"Stock is {stock}"` puts the value of stock into the text.',
+      outro: 'Zara reads your prompt twice, then nods slowly. “That’s what we send on Monday.” She pauses at the door. “Keep your phone on this weekend. Just in case.”',
       steps: [
         {
-          type: 'error', title: 'Meet a TypeError',
-          text: 'This code has a problem on purpose. Tap **Run** and read the error. Errors are normal. They tell you what to fix.',
-          code: 'stock = 120\nprint("Stock: " + stock)',
+          type: 'error', title: 'Text plus a number',
+          say: '“First, the mistake everyone makes building prompts,” Zara says. “Run it. Don’t panic.”',
+          text: 'This code has a problem on purpose. Tap **Run** and read the error.',
+          code: 'stock = 120\nprint("Stock on hand: " + stock)',
           check: { kind: 'error', errorType: 'TypeError' },
-          explain: 'Python can\'t join text and a number with +. Both sides must be text.',
+          explain: 'Python can’t join text and a number with +. Both sides must be text.',
         },
         {
           type: 'fix', title: 'Turn the number into text',
-          text: 'Fix it by wrapping stock in str(), so it shows: `Stock: 120`',
-          code: 'stock = 120\nprint("Stock: " + stock)',
-          check: { kind: 'exact', out: 'Stock: 120' },
-          hints: ['str(stock) turns 120 into the text "120".', '`print("Stock: " + str(stock))`'],
-          solution: 'stock = 120\nprint("Stock: " + str(stock))',
+          say: '“One way out,” Zara says. “Turn the number into text with str().”',
+          text: 'Wrap stock in str() so it shows: `Stock on hand: 120`',
+          code: 'stock = 120\nprint("Stock on hand: " + stock)',
+          check: { kind: 'exact', out: 'Stock on hand: 120' },
+          hints: ['str(stock) turns 120 into the text "120".', '`print("Stock on hand: " + str(stock))`'],
+          solution: 'stock = 120\nprint("Stock on hand: " + str(stock))',
           explain: 'str() converts a value to text. Now both sides of + are text, so they join.',
         },
         {
-          type: 'run', title: 'The easier way: f-strings',
-          text: 'Tap **Run**. Notice the letter f before the quotes, and the names inside { }.',
-          code: 'facility = "Riverside PHC"\nstock = 120\nprint(f"{facility} has {stock} packs")',
+          type: 'run', title: 'Your first prompt template',
+          say: '“Now the better way,” Zara says. “Watch the letter f.”',
+          text: 'Tap **Run**. The f before the quotes makes it an f-string, and each name in { } is filled in.',
+          code: 'facility = "Riverside PHC"\nitem = "ORS sachets"\nprompt = f"You are a stock assistant for {facility}. How many {item} should we order?"\nprint(prompt)',
           check: { kind: 'ran' },
-          explain: 'The f makes it an f-string. Anything inside { } is replaced by its value. No str() needed.',
+          explain: 'That printed text is a real prompt, ready for a model. Change facility or item and the prompt changes with them. No str() needed.',
         },
         {
-          type: 'blank', title: 'Fill the braces',
-          text: 'Replace `___` so it shows: `ORS sachets: 340 left`',
-          code: 'item = "ORS sachets"\nbalance = 340\nprint(f"{item}: {___} left")',
-          check: { kind: 'exact', out: 'ORS sachets: 340 left' },
-          hints: ['Put a variable name inside the braces.', '`{balance}`'],
-          solution: 'item = "ORS sachets"\nbalance = 340\nprint(f"{item}: {balance} left")',
+          type: 'blank', title: 'Fill the blank',
+          say: '“The user’s question goes into the prompt,” Zara says. “Put it in the right slot.”',
+          text: 'Replace `___` so it shows: `Answer briefly: Is zinc in stock?`',
+          code: 'question = "Is zinc in stock?"\nprompt = f"Answer briefly: {___}"\nprint(prompt)',
+          check: { kind: 'exact', out: 'Answer briefly: Is zinc in stock?' },
+          hints: ['Put a variable name inside the braces.', '`{question}`'],
+          solution: 'question = "Is zinc in stock?"\nprompt = f"Answer briefly: {question}"\nprint(prompt)',
           explain: 'The braces are slots. Python fills each slot with the value of whatever is inside it.',
         },
         {
-          type: 'quiz', title: 'Maths inside braces',
+          type: 'quiz', title: 'Maths inside the braces',
+          say: 'Zara taps the screen. “Braces can hold more than names.”',
           text: 'What will this show?',
           code: 'print(f"{2 + 3} items")',
           options: ['{2 + 3} items', '5 items', '2 + 3 items'], answer: 1,
@@ -2712,141 +2879,188 @@ textarea.code {
         },
         {
           type: 'fix', title: 'The missing f',
-          text: 'This shows the braces instead of the number. Fix it so it shows: `Stock left: 75`',
-          code: 'stock = 75\nprint("Stock left: {stock}")',
-          check: { kind: 'exact', out: 'Stock left: 75' },
-          hints: ['An f-string needs the letter f right before the opening quote.', '`print(f"Stock left: {stock}")`'],
-          solution: 'stock = 75\nprint(f"Stock left: {stock}")',
-          explain: 'Without the f, braces are just characters. With it, they become slots for values.',
+          say: '“A teammate’s prompt keeps sending the braces to the model,” Zara says. “Spot the problem.”',
+          text: 'Fix it so it shows: `Check stock for ACT packs`',
+          code: 'item = "ACT packs"\nprint("Check stock for {item}")',
+          check: { kind: 'exact', out: 'Check stock for ACT packs' },
+          hints: ['An f-string needs the letter f right before the opening quote.', '`print(f"Check stock for {item}")`'],
+          solution: 'item = "ACT packs"\nprint(f"Check stock for {item}")',
+          explain: 'Without the f, braces are just characters, and the model would see {item} literally. With the f, they become slots.',
         },
         {
-          type: 'write', title: 'Write an f-string',
-          text: 'Use an f-string to print: `Hilltop Clinic has 2.5 months of stock`',
-          code: 'facility = "Hilltop Clinic"\nmonths = 2.5\n',
-          check: { kind: 'exact', out: 'Hilltop Clinic has 2.5 months of stock', mustUse: [['f"', "f'"]], mustUseMsg: 'Use an f-string: put f right before the opening quote.' },
-          hints: ['Start with `print(f"` and use {facility} and {months}.', '`print(f"{facility} has {months} months of stock")`'],
-          solution: 'facility = "Hilltop Clinic"\nmonths = 2.5\nprint(f"{facility} has {months} months of stock")',
-          explain: 'f-strings are the everyday way to build messages in Python. You\'ll use them constantly.',
+          type: 'run', title: 'A prompt on several lines',
+          say: '“Real prompts are longer,” Zara says. “Three quotes let a prompt run over several lines.”',
+          text: 'Tap **Run**. Notice `f"""` at the start and `"""` at the end.',
+          code: 'facility = "Hilltop Clinic"\nmonths = 1.4\nprompt = f"""You are Stockwise.\nFacility: {facility}\nMonths of stock: {months}\nWrite a one-line resupply alert."""\nprint(prompt)',
+          check: { kind: 'ran' },
+          explain: 'Triple quotes keep the line breaks exactly as you typed them. This is how most real prompts are written in Python.',
+        },
+        {
+          type: 'write', title: 'Write the summary prompt',
+          say: '“Your turn,” Zara says. “Build the summary prompt and keep it in a variable called prompt.”',
+          text: 'Create `prompt` with an f-string, then print it. Expected: `Summarise stock for Market Road Health Post in 2 sentences.`',
+          code: 'facility = "Market Road Health Post"\nsentences = 2\n',
+          check: { kind: 'exact', out: 'Summarise stock for Market Road Health Post in 2 sentences.', vars: { prompt: "'Summarise stock for Market Road Health Post in 2 sentences.'" }, mustUse: [['f"', "f'"]], mustUseMsg: 'Build it with an f-string: put f right before the opening quote.' },
+          hints: ['Use both variables inside braces: {facility} and {sentences}.', '`prompt = f"Summarise stock for {facility} in {sentences} sentences."` then `print(prompt)`'],
+          solution: 'facility = "Market Road Health Post"\nsentences = 2\nprompt = f"Summarise stock for {facility} in {sentences} sentences."\nprint(prompt)',
+          explain: 'You built a reusable prompt template. Change the facility and the same code writes a new prompt. That’s prompt engineering in code.',
         },
       ],
     },
     {
-      id: 'd6', day: 6, minutes: 12, title: 'Reading errors without fear',
-      idea: 'Every error tells you three things: what kind of problem, which line, and a short message. Read those and errors become hints.',
+      id: 'd6', day: 6, minutes: 12, weekday: 'Sunday night', emblem: 'moon',
+      title: 'The night the bot broke', skill: 'Reading errors', ability: 'survives errors',
+      scene: [
+        'Sunday, 9:12 pm. Your phone buzzes on the kitchen table. Then again. And again.',
+        '“Stockwise is down,” the message reads. “Pharmacists can’t get answers.”',
+        'You open the code. Red text fills the screen. Then Zara joins the call, calm as ever, the sound of a kettle behind her. “Errors aren’t the enemy,” she says. “They’re a map. Read it with me.”',
+      ],
+      quote: 'Python always tells you three things: what went wrong, where, and usually a hint. Read before you panic.',
+      why: 'Most AI apps fail in ordinary Python ways: a misspelled variable in a prompt template, a number joined to text, a missing bracket. Reading the error is the fastest fix there is.',
       bridge: 'When a flow fails, the run history shows a red action and an error message. A Python error is the same idea: it points to the failing line and says why.',
+      outro: 'At 10:03 pm, Stockwise answers its first question of the night. Zara sends one message: “Nice debugging. Tomorrow, we launch.”',
       steps: [
         {
-          type: 'error', title: 'Read an error',
-          text: 'Tap **Run**. In the error, find the error type, the line number and the message.',
-          code: 'stock = 120\nprint(stok)',
+          type: 'error', title: 'Read the map',
+          say: '“Run it,” Zara says. “Find three things: the error type, the line number, and the message.”',
+          text: 'Tap **Run** and read the error carefully.',
+          code: 'prompt_tokens = 1200\nprint(promt_tokens)',
           check: { kind: 'error', errorType: 'NameError' },
-          explain: 'NameError means Python doesn\'t know a name. It happened on line 2, and the message even suggests stock.',
+          explain: 'NameError means Python doesn’t know a name. It happened on line 2, and the message even suggests prompt_tokens. One missing letter took down the bot.',
         },
         {
           type: 'quiz', title: 'Decode the message',
-          text: 'Python says: `SyntaxError: \'(\' was never closed`. What is the fix?',
+          say: '“Next error in the log,” Zara says.',
+          text: 'Python says: `SyntaxError: \'(\' was never closed`. What’s the fix?',
           options: ['Add a closing bracket )', 'Add quotes', 'Delete the line'], answer: 0,
           explain: 'Brackets come in pairs. Every ( needs a ) to close it.',
         },
         {
           type: 'fix', title: 'Close the bracket',
-          text: 'Fix it so it shows: `Report ready`',
-          code: 'print("Report ready"',
-          check: { kind: 'exact', out: 'Report ready' },
+          say: '“Here it is in the code,” Zara says. “Get Stockwise back online.”',
+          text: 'Fix it so it shows: `Stockwise is back online`',
+          code: 'print("Stockwise is back online"',
+          check: { kind: 'exact', out: 'Stockwise is back online' },
           hints: ['Count the ( and ) characters.', 'Add `)` at the end of the line.'],
-          solution: 'print("Report ready")',
+          solution: 'print("Stockwise is back online")',
           explain: 'One opening bracket, one closing bracket. Checking pairs is a habit worth building.',
         },
         {
           type: 'fix', title: 'Spaces at the start',
-          text: 'Run it and read the error. Fix it so it shows: `Zinc tablets`',
-          code: 'item = "Zinc tablets"\n    print(item)',
-          check: { kind: 'exact', out: 'Zinc tablets' },
+          say: '“Someone pasted this from a chat,” Zara sighs. “Look at the start of line 2.”',
+          text: 'Run it, read the error, and fix it so it shows: `ORS stock is low.`',
+          code: 'reply = "ORS stock is low."\n    print(reply)',
+          check: { kind: 'exact', out: 'ORS stock is low.' },
           hints: ['Line 2 has spaces at the start.', 'Delete the spaces before print, so it starts at the left edge.'],
-          solution: 'item = "Zinc tablets"\nprint(item)',
-          explain: 'In Python, spaces at the start of a line mean "this belongs inside the block above". You\'ll use that next week with if and loops. For now, start lines at the left edge.',
+          solution: 'reply = "ORS stock is low."\nprint(reply)',
+          explain: 'In Python, spaces at the start of a line mean “this belongs inside the block above”. You’ll use that next week. For now, start lines at the left edge.',
         },
         {
-          type: 'fix', title: 'Text plus a number',
-          text: 'Fix it so it shows: `Issued: 45 packs`',
-          code: 'issued = 45\nprint("Issued: " + issued + " packs")',
-          check: { kind: 'exact', out: 'Issued: 45 packs' },
-          hints: ['Joining text and a number with + causes a TypeError.', 'Use str(issued), or an f-string: `print(f"Issued: {issued} packs")`'],
-          solution: 'issued = 45\nprint(f"Issued: {issued} packs")',
-          explain: 'Two ways to fix the same problem. Either is right. Most people reach for the f-string.',
+          type: 'fix', title: 'The usage report',
+          say: '“The usage report crashed too,” Zara says. “You’ve seen this one before.”',
+          text: 'Fix it so it shows: `Used 450 tokens`',
+          code: 'tokens = 450\nprint("Used " + tokens + " tokens")',
+          check: { kind: 'exact', out: 'Used 450 tokens' },
+          hints: ['Joining text and a number with + causes a TypeError.', 'Use str(tokens), or an f-string: `print(f"Used {tokens} tokens")`'],
+          solution: 'tokens = 450\nprint(f"Used {tokens} tokens")',
+          explain: 'Two ways to fix the same problem. Either is right. Most builders reach for the f-string.',
         },
         {
           type: 'fix', title: 'Two bugs, one at a time',
-          text: 'This has two bugs. Fix the first error, run again, then fix the next. Goal: `Balance: 180`',
-          code: 'received = 300\nused = 120\nbalance = received - Used\nprint(f"Balance: {balance}"',
-          check: { kind: 'exact', out: 'Balance: 180' },
+          say: '“Last one,” Zara says. “It has two bugs. Fix the first error, run again, then fix the next.”',
+          text: 'Goal: `Tokens left: 6800`',
+          code: 'limit = 8000\nused = 1200\nremaining = limit - Used\nprint(f"Tokens left: {remaining}"',
+          check: { kind: 'exact', out: 'Tokens left: 6800' },
           hints: ['Python reports the bracket problem first. Close the bracket on line 4.', 'Then fix the capital letter on line 3: `used`'],
-          solution: 'received = 300\nused = 120\nbalance = received - used\nprint(f"Balance: {balance}")',
-          explain: 'Python stops at the first error it finds. Fix it, run again, fix the next. That is normal debugging.',
+          solution: 'limit = 8000\nused = 1200\nremaining = limit - used\nprint(f"Tokens left: {remaining}")',
+          explain: 'Python stops at the first error it finds. Fix it, run again, fix the next. That’s what real debugging looks like.',
         },
         {
           type: 'quiz', title: 'Your first move',
-          text: 'You get an error. What is the best first step?',
-          options: ['Delete everything and start again', 'Read the error type and the line number', 'Give up for today'], answer: 1,
-          explain: 'The error points you to the line and the problem. Read it first. If you\'re still stuck, use the hint or Ask Claude buttons.',
+          say: 'Zara stretches. “What’s the lesson of tonight?”',
+          text: 'You get an error. What’s the best first step?',
+          options: ['Delete everything and start again', 'Read the error type and the line number', 'Ask the model to fix it without reading'], answer: 1,
+          explain: 'The error points you to the line and the problem. Read it first. If you’re still stuck, tap Hint or Ask Zara.',
         },
       ],
     },
     {
-      id: 'd7', day: 7, minutes: 15, title: 'Mini project: a stock card',
-      idea: 'Put the week together. You\'ll build a small tool that works out the balance and months of stock for one item.',
-      bridge: 'This is like a small flow: get the inputs, calculate, then compose a message. Same steps, written as code.',
+      id: 'd7', day: 7, minutes: 15, weekday: 'Launch day', emblem: 'rocket',
+      title: 'Launch day', skill: 'Putting it together', ability: 'is live',
+      scene: [
+        'Monday again, but nothing feels the same. The pilot pharmacist at Riverside PHC is waiting by the phone.',
+        '“Here’s the plan,” Zara says. “Stockwise gets the numbers. Python does the maths. Then Python writes the exact prompt the AI model will read. No guessing. No made-up numbers.”',
+        'She hands you the keyboard. “It’s your launch.”',
+      ],
+      quote: 'Let Python do the maths. Let the model do the words.',
+      why: 'This is the real pattern behind most AI apps: inputs, calculations in code, then a prompt built from the results. Doing the maths in Python keeps the numbers right. The model only writes the message.',
+      bridge: 'This is a small flow: get the inputs, calculate, compose a message, then send it to an AI step. Same shape, written as code.',
+      outro: 'At 11:20 am, Stockwise sends its first real alert. The pharmacist replies with a thumbs up. Zara is already at the whiteboard: “Next week, it learns to make decisions.”',
       steps: [
         {
           type: 'write', title: 'Step 1: the inputs',
+          say: '“Start with the facts from the stock system,” Zara says.',
           text: 'Add these four variables below the facility line:\n`item = "Amoxicillin"`\n`received = 600`\n`issued = 280`\n`monthly_use = 80`\nThe last line prints the facility, to check the program runs.',
-          code: '# Stock card inputs\nfacility = "Riverside PHC"\n\nprint(facility)',
+          code: '# Inputs from the stock system\nfacility = "Riverside PHC"\n\nprint(facility)',
           check: { kind: 'exact', out: 'Riverside PHC', vars: { item: "'Amoxicillin'", received: '600', issued: '280', monthly_use: '80' } },
-          hints: ['Type each variable on its own line, between line 2 and the print line.', 'Text needs quotes ("Amoxicillin"). Numbers don\'t.'],
-          solution: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\nprint(facility)',
-          explain: 'Inputs first. Keeping them at the top makes the program easy to update later.',
+          hints: ['Type each variable on its own line, between line 2 and the print line.', 'Text needs quotes ("Amoxicillin"). Numbers don’t.'],
+          solution: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\nprint(facility)',
+          explain: 'Inputs first. Keeping them at the top makes the program easy to update.',
         },
         {
           type: 'write', title: 'Step 2: the balance',
+          say: '“Now the maths the model should never guess,” Zara says.',
           text: 'Your inputs are filled in. Create `balance` as received minus issued, then print it.',
-          code: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\n',
+          code: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\n',
           check: { kind: 'exact', out: '320', vars: { balance: '320' } },
           hints: ['`balance = received - issued`', 'Then `print(balance)`'],
-          solution: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\nprint(balance)',
+          solution: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\nprint(balance)',
           explain: 'One calculation, stored in a well-named variable.',
         },
         {
           type: 'write', title: 'Step 3: months of stock',
+          say: '“Pharmacists think in months of stock,” Zara says. “Give them that.”',
           text: 'Create `months_left`: balance divided by monthly_use, rounded to 1 decimal place. Print it. Expected: `4.0`',
-          code: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\n\n# Months of stock\n',
+          code: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\n\n# Months of stock\n',
           check: { kind: 'exact', out: '4.0', vars: { months_left: '4.0' }, mustUse: [['round(']] },
           hints: ['`round(balance / monthly_use, 1)`', '`months_left = round(balance / monthly_use, 1)` then `print(months_left)`'],
-          solution: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\n\n# Months of stock\nmonths_left = round(balance / monthly_use, 1)\nprint(months_left)',
-          explain: '320 / 80 = 4.0 months of stock.',
+          solution: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Balance\nbalance = received - issued\n\n# Months of stock\nmonths_left = round(balance / monthly_use, 1)\nprint(months_left)',
+          explain: '320 / 80 = 4.0 months of stock. Computed by Python, so it’s exactly right.',
         },
         {
-          type: 'write', title: 'Step 4: print the card',
-          text: 'Use f-strings to print the stock card. Your output must match exactly:\n`Facility: Riverside PHC`\n`Item: Amoxicillin`\n`Balance: 320 packs`\n`Months of stock: 4.0`',
-          code: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# Print the stock card\n',
-          check: { kind: 'exact', out: 'Facility: Riverside PHC\nItem: Amoxicillin\nBalance: 320 packs\nMonths of stock: 4.0', mustUse: [['f"', "f'"]], mustUseMsg: 'Use f-strings for the stock card: f"Facility: {facility}"' },
-          hints: ['Four print() lines, one per row of the card.', 'First row: `print(f"Facility: {facility}")`'],
-          solution: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# Print the stock card\nprint(f"Facility: {facility}")\nprint(f"Item: {item}")\nprint(f"Balance: {balance} packs")\nprint(f"Months of stock: {months_left}")',
-          explain: 'That is a complete program: inputs, calculations and a formatted report.',
+          type: 'write', title: 'Step 4: write the prompt',
+          say: '“The prompt has a beginning and an end,” Zara says. “Fill in the facts in the middle.”',
+          text: 'Add three lines inside the prompt, after the Facility line, so the output is exactly:\n`You are Stockwise, a stock assistant.`\n`Facility: Riverside PHC`\n`Item: Amoxicillin`\n`Balance: 320 packs`\n`Months of stock: 4.0`\n`Write a one-sentence status update for the pharmacist.`',
+          code: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# The prompt the AI model will read\nprompt = f"""You are Stockwise, a stock assistant.\nFacility: {facility}\nWrite a one-sentence status update for the pharmacist."""\nprint(prompt)',
+          check: { kind: 'exact', out: 'You are Stockwise, a stock assistant.\nFacility: Riverside PHC\nItem: Amoxicillin\nBalance: 320 packs\nMonths of stock: 4.0\nWrite a one-sentence status update for the pharmacist.' },
+          hints: ['Add the lines between “Facility: {facility}” and “Write a one-sentence…”. Use {item}, {balance} and {months_left}.', 'The three new lines: `Item: {item}`, then `Balance: {balance} packs`, then `Months of stock: {months_left}`'],
+          solution: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# The prompt the AI model will read\nprompt = f"""You are Stockwise, a stock assistant.\nFacility: {facility}\nItem: {item}\nBalance: {balance} packs\nMonths of stock: {months_left}\nWrite a one-sentence status update for the pharmacist."""\nprint(prompt)',
+          explain: 'That printed text is exactly what an AI model would receive. The facts come from Python, so the model can’t get the numbers wrong.',
         },
         {
-          type: 'change', title: 'Step 5: new numbers',
-          text: 'Real numbers change. Change issued from 280 to 490 and run it again. Watch the balance and months of stock update by themselves.',
-          code: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# Print the stock card\nprint(f"Facility: {facility}")\nprint(f"Item: {item}")\nprint(f"Balance: {balance} packs")\nprint(f"Months of stock: {months_left}")',
-          check: { kind: 'exact', out: 'Facility: Riverside PHC\nItem: Amoxicillin\nBalance: 110 packs\nMonths of stock: 1.4', vars: { issued: '490' } },
+          type: 'change', title: 'Step 5: a busy month',
+          say: 'The phone rings. A busy month: Riverside issued far more than planned. “Update the input,” Zara says. “Watch the prompt rewrite itself.”',
+          text: 'Change issued from 280 to 490 and tap **Run**.',
+          code: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 280\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# The prompt the AI model will read\nprompt = f"""You are Stockwise, a stock assistant.\nFacility: {facility}\nItem: {item}\nBalance: {balance} packs\nMonths of stock: {months_left}\nWrite a one-sentence status update for the pharmacist."""\nprint(prompt)',
+          check: { kind: 'exact', out: 'You are Stockwise, a stock assistant.\nFacility: Riverside PHC\nItem: Amoxicillin\nBalance: 110 packs\nMonths of stock: 1.4\nWrite a one-sentence status update for the pharmacist.', vars: { issued: '490' } },
           hints: ['Change only line 5.', '`issued = 490`'],
-          solution: '# Stock card inputs\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 490\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# Print the stock card\nprint(f"Facility: {facility}")\nprint(f"Item: {item}")\nprint(f"Balance: {balance} packs")\nprint(f"Months of stock: {months_left}")',
-          explain: 'You changed one input and everything else updated. That is why we write programs instead of doing the sums by hand.',
+          solution: '# Inputs from the stock system\nfacility = "Riverside PHC"\nitem = "Amoxicillin"\nreceived = 600\nissued = 490\nmonthly_use = 80\n\n# Calculations\nbalance = received - issued\nmonths_left = round(balance / monthly_use, 1)\n\n# The prompt the AI model will read\nprompt = f"""You are Stockwise, a stock assistant.\nFacility: {facility}\nItem: {item}\nBalance: {balance} packs\nMonths of stock: {months_left}\nWrite a one-sentence status update for the pharmacist."""\nprint(prompt)',
+          explain: 'One input changed and the whole prompt updated, with the right numbers. That’s why AI builders write code instead of pasting numbers into prompts by hand.',
         },
         {
-          type: 'quiz', title: 'What should happen next?',
-          text: 'Months of stock is now 1.4. If the facility needs at least 2 months, what should the program do?',
-          options: ['Nothing', 'Flag it for resupply', 'Delete the record'], answer: 1,
-          explain: 'Next week you\'ll teach Python to make that decision itself with if and else, like a Condition in Power Automate.',
+          type: 'run', title: 'Step 6: the model replies',
+          say: '“In the pilot, the model answered within a second,” Zara says. “Here’s what it wrote. Show it to the pharmacist.”',
+          text: 'Tap **Run**. In Week 3 you’ll call a real model. Today we use the reply it gave in the pilot.',
+          code: 'reply = "Riverside PHC has 1.4 months of amoxicillin left. Please order more this week."\nprint(f"Stockwise: {reply}")',
+          check: { kind: 'ran' },
+          explain: 'Prompt in, reply out, shown to the user. You’ve now seen the whole shape of an AI app, end to end.',
+        },
+        {
+          type: 'quiz', title: 'What comes next?',
+          say: 'Zara leans on the whiteboard. “One question before we celebrate.”',
+          text: 'Months of stock is 1.4 and the rule is “alert below 2 months”. How should Stockwise decide when to send an alert?',
+          options: ['Python checks the number and decides', 'Send every number to the model and hope', 'A person checks every facility by hand'], answer: 0,
+          explain: 'Rules that must always be right belong in code. Next week you’ll teach Python to decide with if and else, like a Condition in Power Automate.',
         },
       ],
     },
@@ -2854,7 +3068,7 @@ textarea.code {
 
   const normOut = (s) => String(s || '').replace(/[ \t]+$/gm, '').replace(/\n+$/, '');
 
-  // Checks a code step. Returns {ok, reason, expected?, got?}.
+  // Checks a code step. Returns {ok, reason, message?, expected?, got?}.
   function check(step, code, res) {
     const c = step.check || { kind: 'ran' };
     if (!res) return { ok: false, reason: 'not-run' };
@@ -2903,13 +3117,14 @@ textarea.code {
 
 </script>
 <script>
-/* Python Steps app: home path, lesson flow, progress, hints and the Ask Claude helper. */
+/* Python Steps app: story chapters, lesson flow, progress, hints and the Ask Zara chat. */
 (function () {
   'use strict';
   const LESSONS = window.LESSONS;
   const MiniPy = window.MiniPy;
   const checkStep = window.PSCheck;
   const KEY = 'python-steps-progress-v1';
+  const CHAT_KEY = 'python-steps-chat-v1';
   const app = document.getElementById('app');
   const toastEl = document.getElementById('toast');
 
@@ -2920,7 +3135,6 @@ textarea.code {
       for (const [k, v] of Object.entries(props)) {
         if (v === null || v === undefined || v === false) continue;
         if (k === 'class') el.className = v;
-        else if (k === 'text') el.textContent = v;
         else if (k.startsWith('on') && typeof v === 'function') el.addEventListener(k.slice(2), v);
         else el.setAttribute(k, v === true ? '' : String(v));
       }
@@ -2940,11 +3154,25 @@ textarea.code {
     next: '<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     reset: '<svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     chat: '<svg viewBox="0 0 24 24"><path d="M5 5h14a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 19 17h-8l-4.5 3.5V17H5a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 5 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-    flame: '<svg viewBox="0 0 24 24"><path d="M12 2.5c1.2 3.6 5.5 5.6 5.5 10.6a5.5 5.5 0 0 1-11 0c0-2.4 1.2-4 2.5-5.3.3 1.8 1.3 2.9 2.4 3.1-.7-2.9-.2-5.9.6-8.4z" fill="currentColor"/></svg>',
+    close: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    send: '<svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z" fill="currentColor"/></svg>',
     medal: '<svg viewBox="0 0 24 24"><circle cx="12" cy="14.5" r="6" fill="currentColor"/><path d="M8 3h3l1.5 5M16 3h-3L11.5 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
     eye: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>',
+    book: '<svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+  };
+  // One emblem per chapter, drawn with the theme's ink and yellow.
+  const EMBLEMS = {
+    talk: '<svg viewBox="0 0 64 64"><rect x="8" y="12" width="40" height="28" rx="8" fill="var(--yellow)"/><path d="M18 40l-4 10 12-10" fill="var(--yellow)"/><circle cx="20" cy="26" r="3" fill="var(--blue)"/><circle cx="28" cy="26" r="3" fill="var(--blue)"/><circle cx="36" cy="26" r="3" fill="var(--blue)"/><rect x="34" y="30" width="22" height="18" rx="6" fill="none" stroke="currentColor" stroke-width="3"/></svg>',
+    boxes: '<svg viewBox="0 0 64 64"><rect x="6" y="30" width="22" height="22" rx="4" fill="var(--yellow)"/><rect x="34" y="30" width="22" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="20" y="8" width="22" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M11 41h12M39 41h12M25 18h12" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/></svg>',
+    gauge: '<svg viewBox="0 0 64 64"><path d="M8 44a24 24 0 0 1 48 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M8 44a24 24 0 0 1 16-22.6" fill="none" stroke="var(--yellow)" stroke-width="6" stroke-linecap="round"/><path d="M32 44l12-14" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="44" r="5" fill="var(--yellow)"/></svg>',
+    sparkle: '<svg viewBox="0 0 64 64"><path d="M30 6l5 15 15 5-15 5-5 15-5-15-15-5 15-5z" fill="var(--yellow)"/><path d="M48 38l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>',
+    prompt: '<svg viewBox="0 0 64 64"><rect x="12" y="6" width="38" height="50" rx="6" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 18h22M20 27h10M20 36h22M20 45h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="32" y="23" width="12" height="8" rx="3" fill="var(--yellow)"/><rect x="36" y="41" width="10" height="8" rx="3" fill="var(--yellow)"/></svg>',
+    moon: '<svg viewBox="0 0 64 64"><path d="M40 8a22 22 0 1 0 16 34A18 18 0 0 1 40 8z" fill="var(--yellow)"/><path d="M26 22l-6 12h8l-4 12 12-16h-8l4-8z" fill="currentColor"/></svg>',
+    rocket: '<svg viewBox="0 0 64 64"><path d="M32 4c10 8 14 20 12 34H20C18 24 22 12 32 4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="22" r="5" fill="var(--yellow)"/><path d="M20 30l-8 12h9M44 30l8 12h-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M26 44l6 14 6-14z" fill="var(--yellow)"/></svg>',
   };
   function icon(name) { const s = document.createElement('span'); s.className = 'ico'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = ICONS[name]; return s; }
+  function emblem(name) { const s = document.createElement('span'); s.className = 'emblem'; s.setAttribute('aria-hidden', 'true'); s.innerHTML = EMBLEMS[name] || EMBLEMS.talk; return s; }
+  const avatar = () => h('span', { class: 'avatar', 'aria-hidden': 'true' }, 'Z');
 
   // Inline formatting for lesson text: **bold**, `code`, line breaks.
   function fmt(text) {
@@ -2968,7 +3196,7 @@ textarea.code {
     const parts = String(text).split(/```(?:python|py)?\n?([\s\S]*?)(?:```|$)/);
     parts.forEach((p, i) => {
       if (i % 2) frag.append(h('pre', null, p.replace(/\n$/, '')));
-      else frag.append(fmt(p.replace(/^\n+|\n+$/g, '')));
+      else if (p.trim()) frag.append(h('span', null, fmt(p.replace(/^\n+|\n+$/g, ''))));
     });
     return frag;
   }
@@ -2997,6 +3225,8 @@ textarea.code {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { toastEl.hidden = true; }, 3200);
   }
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
   // ------------------------------------------------------------ progress
   const pad = (n) => String(n).padStart(2, '0');
@@ -3035,17 +3265,17 @@ textarea.code {
   const same = (a, b) => JSON.stringify({ ...a, updatedAt: 0 }) === JSON.stringify({ ...b, updatedAt: 0 });
 
   const cloud = { ref: null, status: 'local', writing: false, again: false, timer: null };
-  function setSync(s) {
-    cloud.status = s;
-    const el = document.getElementById('sync');
-    if (el) { el.className = 'sync ' + s; el.textContent = SYNC_TEXT[s]; }
-  }
   const SYNC_TEXT = {
     local: 'Progress is saved on this device.',
     cloud: 'Progress is saved to your Claude account.',
     saving: 'Saving…',
     error: "Couldn't save to your Claude account. Progress is kept on this device.",
   };
+  function setSync(s) {
+    cloud.status = s;
+    const el = document.getElementById('sync');
+    if (el) { el.className = 'sync ' + s; el.textContent = SYNC_TEXT[s]; }
+  }
   function save() {
     P.updatedAt = Date.now();
     try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) { /* storage may be blocked */ }
@@ -3056,15 +3286,9 @@ textarea.code {
     if (cloud.writing) { cloud.again = true; return; }
     cloud.writing = true;
     setSync('saving');
-    try {
-      await cloud.ref.set(JSON.parse(JSON.stringify(P)));
-      setSync('cloud');
-    } catch (e) {
-      setSync('error');
-    } finally {
-      cloud.writing = false;
-      if (cloud.again) { cloud.again = false; flushCloud(); }
-    }
+    try { await cloud.ref.set(JSON.parse(JSON.stringify(P))); setSync('cloud'); }
+    catch (e) { setSync('error'); }
+    finally { cloud.writing = false; if (cloud.again) { cloud.again = false; flushCloud(); } }
   }
   async function initCloud() {
     if (!window.claude || typeof window.claude.use !== 'function') return;
@@ -3089,25 +3313,20 @@ textarea.code {
     }
   }
 
-  let sample = null, aiOff = false;
-  async function initSample() {
-    if (!window.claude || typeof window.claude.use !== 'function') return;
-    try { sample = await window.claude.use('sample'); } catch (e) { sample = null; }
-    if (sample && ui.view === 'lesson') renderLesson();
-  }
-
   const BADGES = [
     { id: 'first-run', name: 'First run', desc: 'Ran Python for the first time' },
     { id: 'bug-hunter', name: 'Bug hunter', desc: 'Fixed your first bug' },
+    { id: 'curious', name: 'Curious mind', desc: 'Asked Zara a question' },
     { id: 'streak-3', name: '3-day streak', desc: 'Practised 3 days in a row' },
     { id: 'streak-7', name: '7-day streak', desc: 'Practised 7 days in a row' },
-    { id: 'week-1', name: 'Week 1 done', desc: 'Finished Talking to Python' },
+    { id: 'week-1', name: 'Launch crew', desc: 'Finished the Stockwise story' },
   ];
   function award(id) {
     if (P.badges[id]) return;
     P.badges[id] = today();
     const b = BADGES.find((x) => x.id === id);
     if (b) { ui.newBadges.push(b); toast(`Badge earned: ${b.name}`); }
+    save();
   }
   function streakNow() { return P.streak.last === today() || P.streak.last === yesterday() ? P.streak.count : 0; }
   function bumpStreak() {
@@ -3121,7 +3340,7 @@ textarea.code {
   const unlocked = (li) => li === 0 || !!P.done[LESSONS[li - 1].id];
 
   // ------------------------------------------------------------ app state
-  const ui = { view: 'home', li: 0, si: 0, steps: {}, sessionXp: 0, newBadges: [] };
+  const ui = { view: 'home', li: 0, si: -1, steps: {}, sessionXp: 0, newBadges: [] };
   const draftKey = (li, si) => `python-steps-draft:${LESSONS[li].id}:${si}`;
   function loadDraft(li, si) { try { return localStorage.getItem(draftKey(li, si)); } catch (e) { return null; } }
   let draftTimer = null;
@@ -3135,7 +3354,7 @@ textarea.code {
     if (!ui.steps[k]) {
       const step = LESSONS[li].steps[si];
       const draft = step.type === 'quiz' ? null : loadDraft(li, si);
-      ui.steps[k] = { code: draft !== null ? draft : (step.code || ''), result: null, verdict: null, passed: false, gained: 0, hint: 0, choice: null, wrong: [], ai: null };
+      ui.steps[k] = { code: draft !== null && draft !== '' ? draft : (step.code || ''), result: null, verdict: null, passed: false, gained: 0, hint: 0, choice: null, wrong: [] };
     }
     return ui.steps[k];
   }
@@ -3173,7 +3392,7 @@ textarea.code {
     const m = err.message || '';
     switch (err.type) {
       case 'SyntaxError':
-        if (/unterminated (triple-quoted )?string/.test(m)) return 'A piece of text is missing its closing quote. Text needs a quote at the start and at the end, "like this".';
+        if (/unterminated (triple-quoted )?string/.test(m)) return 'A piece of text is missing its closing quote. Text needs a quote at the start and at the end, "like this". A prompt in triple quotes needs """ at both ends.';
         if (/was never closed/.test(m)) return 'A bracket was opened but never closed. Every ( needs a ), every [ needs a ] and every { needs a }.';
         if (/unmatched|does not match/.test(m)) return 'There is a closing bracket without a matching opening one. Count your brackets.';
         if (/forgot a comma/.test(m)) return 'Two values sit side by side with nothing between them. Add a comma, or a + to join them.';
@@ -3184,12 +3403,13 @@ textarea.code {
         if (/invalid decimal literal/.test(m)) return 'A number runs straight into letters. Variable names can\'t start with a number.';
         if (/leading zeros/.test(m)) return 'Whole numbers can\'t start with 0 in Python. Write 7, not 07.';
         if (/cannot assign to/.test(m)) return 'The variable name goes on the left of = and the value on the right, like stock = 120.';
-        return `Python couldn't read line ${err.line}. Look for a typo, a missing symbol or an extra one. Names can't contain spaces: use an underscore, like monthly_use. To multiply, use *.`;
+        if (/f-string/.test(m)) return 'Something inside the { } of an f-string is incomplete. Each { needs a } and a name or value inside.';
+        return `Python couldn't read line ${err.line}. Look for a typo, a missing symbol or an extra one. Names can't contain spaces: use an underscore, like max_tokens. To multiply, use *.`;
       case 'IndentationError':
         if (/unexpected indent/.test(m)) return 'This line starts with spaces it shouldn\'t have. In Python, spaces at the start of a line mean "this belongs inside the block above".';
         if (/expected an indented block/.test(m)) return 'After a line that ends with a colon, the next line must start with 4 spaces. Use the Tab key above.';
         return 'The spaces at the start of this line don\'t line up with the lines around it.';
-      case 'NameError': return 'Python doesn\'t know this name yet. Check the spelling and capital letters (stock and Stock are different names), check you created it on an earlier line, and put text in quotes.';
+      case 'NameError': return 'Python doesn\'t know this name yet. Check the spelling and capital letters (prompt and Prompt are different names), check you created it on an earlier line, and put text in quotes.';
       case 'TypeError':
         if (/can only concatenate str/.test(m)) return 'You are joining text and a number with +. Turn the number into text with str(), or use an f-string.';
         if (/unsupported operand/.test(m)) return 'These two kinds of value can\'t be combined with this symbol. Check both are numbers, or both are text.';
@@ -3208,6 +3428,170 @@ textarea.code {
     }
     return 'Read the error type and the line number, then look closely at that line.';
   }
+
+  // ------------------------------------------------------------ Ask Zara chat
+  let sample = null, aiOff = false;
+  function loadChat() {
+    try {
+      const a = JSON.parse(localStorage.getItem(CHAT_KEY) || '[]');
+      return Array.isArray(a) ? a.filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.text === 'string' && m.text).slice(-40) : [];
+    } catch (e) { return []; }
+  }
+  const chat = { open: false, msgs: loadChat(), busy: false, ctl: null, note: '' };
+  function saveChat() { try { localStorage.setItem(CHAT_KEY, JSON.stringify(chat.msgs.filter((m) => m.text).slice(-40))); } catch (e) { /* ignore */ } }
+  const chatEl = h('div', { class: 'chat', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Ask Zara', hidden: true });
+  document.body.append(chatEl);
+
+  async function initSample() {
+    if (!window.claude || typeof window.claude.use !== 'function') return;
+    try { sample = await window.claude.use('sample'); } catch (e) { sample = null; }
+    if (sample) { render(); if (chat.open) renderChat(); }
+  }
+  const plain = (s) => String(s || '').replace(/\*\*/g, '').replace(/`/g, '');
+  function chatContext() {
+    if (ui.view === 'lesson' && LESSONS[ui.li]) {
+      const lesson = LESSONS[ui.li];
+      const head = `Day ${lesson.day}, chapter "${lesson.title}" (Python topic: ${lesson.skill}).`;
+      if (ui.si < 0) return `They are reading the story introduction of ${head} Builder's note for this chapter: ${lesson.why}`;
+      const step = lesson.steps[ui.si];
+      const st = stepState(ui.li, ui.si);
+      let s = `They are on ${head} Step ${ui.si + 1} of ${lesson.steps.length}, "${step.title}". Task: ${plain(step.text)}`;
+      if (step.check && step.check.out) s += `\nExpected output:\n${step.check.out}`;
+      if (step.type === 'quiz') {
+        s += `\nQuiz${step.code ? ` code:\n${step.code}\n` : ' '}options: ${step.options.join(' | ')}. Do not just reveal the answer unless they ask for it.`;
+      } else {
+        s += `\nTheir current code:\n\`\`\`python\n${st.code}\n\`\`\``;
+        if (st.result) s += st.result.error ? `\nTheir last run stopped with ${st.result.error.type} on line ${st.result.error.line}: ${st.result.error.message}` : `\nTheir last run printed:\n${st.result.output || '(nothing)'}`;
+      }
+      return s;
+    }
+    if (ui.view === 'finish' && LESSONS[ui.li]) return `They just finished Day ${LESSONS[ui.li].day}, "${LESSONS[ui.li].title}".`;
+    const done = LESSONS.filter((l) => P.done[l.id]).length;
+    return `They are on the home screen. They have finished ${done} of ${LESSONS.length} chapters.`;
+  }
+  function chatInstructions() {
+    return [
+      'You are Zara, the warm, patient lead engineer and mentor in a phone learning app called Python Steps.',
+      'In the app\'s story, the learner joins a small team at a district health office building "Stockwise", an AI assistant that helps pharmacists avoid stockouts. All people and places in the story are fictional.',
+      'The learner is an adult IT professional who builds with Microsoft Copilot Studio and Power Automate, finds code hard, and is learning Python to build AI solutions: prompts, cleaning data, working with model replies, and later calling AI models from code.',
+      'Week 1 covers print(), variables, numbers, text methods, f-strings and prompt templates, and reading errors.',
+      'How to answer:',
+      '- Plain, friendly English. Short: under 120 words unless they ask for more.',
+      '- When an example helps, use a tiny beginner Python example in a ```python block, using only what Week 1 covers where possible.',
+      '- Link to Copilot Studio or Power Automate only when it truly helps.',
+      '- About the current step, give hints, not the full answer, unless they clearly ask for the answer.',
+      '- If you are not sure, say so. Never ask for passwords, personal data or real work data.',
+      '- Stay in character as Zara, but if asked, say honestly that you are Claude, an AI, playing Zara.',
+      `Where they are in the app right now: ${chatContext()}`,
+    ].join('\n');
+  }
+  function suggestions() {
+    if (ui.view === 'lesson' && LESSONS[ui.li]) {
+      if (ui.si < 0) return ['What is this chapter about?', 'Why does this matter for AI?'];
+      const step = LESSONS[ui.li].steps[ui.si];
+      const st = stepState(ui.li, ui.si);
+      if (step.type === 'quiz') return ['Explain the question', 'Give me a hint'];
+      if (st.result && st.result.error) return ['Explain this error', 'Give me a hint'];
+      return ['Give me a hint', 'Explain this step simply'];
+    }
+    return ['What will I build in this course?', 'What is a token?', 'How is Python different from Power Automate?'];
+  }
+  function openChat(autoSend) {
+    chat.open = true;
+    chatEl.hidden = false;
+    document.body.classList.add('locked');
+    renderChat();
+    if (autoSend && sample && !aiOff) sendChat(autoSend);
+    else { const inp = document.getElementById('chat-input'); if (inp && !inp.disabled) inp.focus(); }
+  }
+  function closeChat() {
+    chat.open = false;
+    chatEl.hidden = true;
+    document.body.classList.remove('locked');
+  }
+  function scrollChat() { const list = document.getElementById('chat-list'); if (list) list.scrollTop = list.scrollHeight; }
+  function paintLive() {
+    const live = document.getElementById('chat-live');
+    const last = chat.msgs[chat.msgs.length - 1];
+    if (!live || !last) return;
+    live.replaceChildren(last.text ? fmtAnswer(last.text) : h('span', { class: 'typing' }, 'Zara is thinking…'));
+    scrollChat();
+  }
+  const CHAT_ERRORS = {
+    rate_limited: 'Claude is busy or you have reached a usage limit. Try again in a little while.',
+    session_expired: 'Sign in to Claude again to keep asking questions.',
+    refused: "Zara couldn't answer that one. Try asking it a different way.",
+    empty_completion: "Zara couldn't answer that one. Try asking it a different way.",
+    upstream_error: "Couldn't reach Claude. Check your connection and try again.",
+  };
+  async function sendChat(text) {
+    text = String(text || '').trim();
+    if (!text || chat.busy) return;
+    if (!sample || aiOff) { renderChat(); return; }
+    award('curious');
+    chat.msgs.push({ role: 'user', text });
+    const live = { role: 'assistant', text: '' };
+    chat.msgs.push(live);
+    chat.busy = true; chat.note = '';
+    renderChat();
+    const ctl = new AbortController();
+    chat.ctl = ctl;
+    const history = chat.msgs.slice(0, -1).filter((m) => m.text.trim()).slice(-12);
+    const turns = [{ role: 'user', content: chatInstructions() }, ...history.map((m) => ({ role: m.role, content: m.text }))];
+    try {
+      await sample(turns, { modelTier: 'quick', cache: false, signal: ctl.signal, onText: ({ text: t }) => { live.text = t; paintLive(); } });
+    } catch (e) {
+      const code = e && e.code;
+      if (['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'].includes(code)) {
+        aiOff = true;
+        chat.note = 'Ask Zara is turned off for this page. You can allow it from the page\'s Permissions menu, then reload.';
+      } else if (code !== 'cancelled') chat.note = CHAT_ERRORS[code] || CHAT_ERRORS.upstream_error;
+      if (code === 'refused') live.text = '';
+      else if (e && e.text) live.text = e.text;
+    } finally {
+      if (!live.text) chat.msgs.pop();
+      chat.busy = false; chat.ctl = null;
+      saveChat();
+      if (chat.open) renderChat();
+    }
+  }
+  function renderChat() {
+    if (!chat.open) return;
+    const canAsk = !!sample && !aiOff;
+    const list = h('div', { class: 'chat-list', id: 'chat-list', 'aria-live': 'polite' });
+    if (!chat.msgs.length) {
+      list.append(h('div', { class: 'msg-row' }, avatar(), h('div', { class: 'msg bot' },
+        canAsk ? 'Hi, I\'m Zara. Ask me anything simple about Python or building with AI. I can see which step you\'re on, so "give me a hint" works too.'
+          : 'Ask Zara needs Claude. Open Python Steps from your Claude link to ask questions. In this copy, the Hint and Show answer buttons still work.')));
+    }
+    chat.msgs.forEach((m, i) => {
+      const isLive = chat.busy && i === chat.msgs.length - 1 && m.role === 'assistant';
+      if (m.role === 'user') list.append(h('div', { class: 'msg user' }, m.text));
+      else list.append(h('div', { class: 'msg-row' }, avatar(), h('div', { class: 'msg bot', id: isLive ? 'chat-live' : null }, m.text ? fmtAnswer(m.text) : h('span', { class: 'typing' }, 'Zara is thinking…'))));
+    });
+    if (chat.note) list.append(h('p', { class: 'note' }, chat.note));
+    const chips = canAsk && !chat.busy ? h('div', { class: 'chips' }, suggestions().map((s) => h('button', { class: 'chip-btn', type: 'button', onclick: () => sendChat(s) }, s))) : null;
+    const input = h('textarea', { id: 'chat-input', rows: '1', placeholder: canAsk ? 'Ask a question…' : 'Ask Zara needs your Claude link', 'aria-label': 'Your question', disabled: !canAsk || chat.busy, enterkeyhint: 'send' });
+    const grow = () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; };
+    input.addEventListener('input', grow);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(input.value); } });
+    const form = h('form', { class: 'chat-form', onsubmit: (e) => { e.preventDefault(); sendChat(input.value); } },
+      input,
+      chat.busy
+        ? h('button', { class: 'send', type: 'button', 'aria-label': 'Stop', onclick: () => chat.ctl && chat.ctl.abort() }, icon('close'))
+        : h('button', { class: 'send', type: 'submit', 'aria-label': 'Send', disabled: !canAsk }, icon('send')));
+    chatEl.replaceChildren(h('div', { class: 'chat-inner' },
+      h('header', { class: 'chat-head' },
+        avatar(),
+        h('div', { class: 'grow' }, h('strong', null, 'Ask Zara'), h('span', null, 'Your mentor from the story. Answers come from Claude on your account.')),
+        h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Close', onclick: closeChat }, icon('close'))),
+      list,
+      chips,
+      form,
+      chat.msgs.length && !chat.busy ? h('div', { class: 'chat-foot' }, h('button', { class: 'btn-link', type: 'button', onclick: () => { chat.msgs = []; chat.note = ''; saveChat(); renderChat(); } }, 'Clear chat')) : null));
+    scrollChat();
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && chat.open) closeChat(); });
 
   // ------------------------------------------------------------ routing
   function route() {
@@ -3228,7 +3612,7 @@ textarea.code {
     ui.li = li;
     const lesson = LESSONS[li];
     const max = P.stepMax[lesson.id] || 0;
-    ui.si = P.done[lesson.id] ? 0 : Math.min(max, lesson.steps.length - 1);
+    ui.si = P.done[lesson.id] || max === 0 ? -1 : Math.min(max, lesson.steps.length - 1);
     ui.sessionXp = 0;
     ui.newBadges = [];
     render();
@@ -3247,10 +3631,10 @@ textarea.code {
     const rows = [
       ['streak', String(streakNow()), streakNow() === 1 ? 'day in a row' : 'days in a row'],
       ['xp', String(P.xp), `level ${lv}`],
-      ['lessons_done', String(done), `of ${LESSONS.length}`],
+      ['chapters_done', String(done), `of ${LESSONS.length}`],
     ];
     const w = Math.max(...rows.map((r) => r[0].length + 3 + r[1].length)) + 2;
-    const pre = h('pre', { class: 'vars', 'aria-label': `Streak ${rows[0][1]} days. ${P.xp} XP, level ${lv}. ${done} of ${LESSONS.length} lessons done.` });
+    const pre = h('pre', { class: 'vars', 'aria-label': `Streak ${rows[0][1]} days. ${P.xp} XP, level ${lv}. ${done} of ${LESSONS.length} chapters done.` });
     rows.forEach((r, i) => {
       if (i) pre.append('\n');
       const used = r[0].length + 3 + r[1].length;
@@ -3265,20 +3649,26 @@ textarea.code {
 
     let todayCard;
     if (nextIdx === -1) {
-      todayCard = h('section', { class: 'today', 'aria-label': 'Week complete' },
-        h('p', { class: 'eyebrow' }, 'Week 1 complete'),
-        h('h2', null, 'You finished Talking to Python'),
-        h('p', null, 'Ask Claude in chat to add Week 2: decisions with if and else, and loops. You can review any day below.'));
+      todayCard = h('section', { class: 'today', 'aria-label': 'Story complete' },
+        h('div', { class: 'today-top' }, emblem('rocket'), h('p', { class: 'eyebrow' }, 'Week 1 complete')),
+        h('h2', null, 'Stockwise is live'),
+        h('p', null, 'You finished the first story. Ask Claude in chat to add Week 2, where Stockwise learns to make decisions with if and else, and loops. You can reread any chapter below.'));
     } else {
       const l = LESSONS[nextIdx];
       const max = P.stepMax[l.id] || 0;
-      todayCard = h('section', { class: 'today', 'aria-label': "Today's lesson" },
-        h('p', { class: 'eyebrow' }, max ? `Day ${l.day} · step ${Math.min(max + 1, l.steps.length)} of ${l.steps.length}` : `Today · Day ${l.day} · about ${l.minutes} min`),
+      todayCard = h('section', { class: 'today', 'aria-label': "Today's chapter" },
+        h('div', { class: 'today-top' }, emblem(l.emblem), h('p', { class: 'eyebrow' }, max ? `Chapter ${l.day} · step ${Math.min(max + 1, l.steps.length)} of ${l.steps.length}` : `Chapter ${l.day} · ${l.weekday} · ${l.minutes} min`)),
         h('h2', null, l.title),
-        h('p', null, l.idea),
-        doneToday ? h('p', { class: 'note' }, 'You did a lesson today, so your streak is safe. Keep going now, or come back tomorrow.') : null,
-        h('button', { class: 'btn', type: 'button', onclick: () => go('#day-' + l.day) }, icon('play'), max ? `Continue Day ${l.day}` : `Start Day ${l.day}`));
+        h('p', { class: 'teaser' }, l.scene[0]),
+        h('p', { class: 'skill-line' }, 'Python today: ', h('strong', null, l.skill)),
+        doneToday ? h('p', { class: 'note' }, 'You finished a chapter today, so your streak is safe. Keep going now, or come back tomorrow.') : null,
+        h('button', { class: 'btn', type: 'button', onclick: () => go('#day-' + l.day) }, icon(max ? 'play' : 'book'), max ? `Continue chapter ${l.day}` : `Start chapter ${l.day}`));
     }
+
+    const abilities = h('ul', { class: 'abilities', 'aria-label': 'What Stockwise can do' }, LESSONS.map((l) => {
+      const got = !!P.done[l.id];
+      return h('li', { class: got ? 'on' : '' }, icon(got ? 'check' : 'lock'), cap(l.ability));
+    }));
 
     const path = h('ol', { class: 'path' }, LESSONS.map((l, i) => {
       const done = !!P.done[l.id];
@@ -3287,9 +3677,9 @@ textarea.code {
       const cls = 'day' + (done ? ' done' : '') + (current ? ' current' : '') + (!open ? ' locked' : '');
       const tag = done ? h('span', { class: 'tag tag-done' }, 'Done') : current ? h('span', { class: 'tag tag-today' }, 'Next') : !open ? h('span', { class: 'tag tag-locked' }, 'Locked') : null;
       return h('li', { class: cls },
-        h('button', { class: 'day-btn', type: 'button', disabled: !open, 'aria-label': `Day ${l.day}: ${l.title}${done ? ', done' : !open ? ', locked until you finish the day before' : ''}`, onclick: () => go('#day-' + l.day) },
+        h('button', { class: 'day-btn', type: 'button', disabled: !open, 'aria-label': `Chapter ${l.day}: ${l.title}${done ? ', done' : !open ? ', locked until you finish the chapter before' : ''}`, onclick: () => go('#day-' + l.day) },
           h('span', { class: 'dot' }, done ? icon('check') : !open ? icon('lock') : String(l.day)),
-          h('span', { class: 'day-text' }, h('strong', null, l.title), h('span', null, `Day ${l.day} · ${l.steps.length} steps · ${l.minutes} min`)),
+          h('span', { class: 'day-text' }, h('strong', null, l.title), h('span', null, `${l.skill} · ${l.steps.length} steps · ${l.minutes} min`)),
           tag));
     }));
 
@@ -3302,25 +3692,34 @@ textarea.code {
     app.replaceChildren(
       h('header', null,
         h('div', { class: 'brand' }, h('span', { class: 'brand-mark', 'aria-hidden': 'true' }, 'py'), h('h1', null, 'Python Steps')),
-        h('p', { class: 'home-sub' }, 'Week 1 · Talking to Python · one short step a day')),
+        h('p', { class: 'home-sub' }, 'Week 1 · The Stockwise story · learn Python by building an AI assistant')),
       h('section', { class: 'progress-card', 'aria-label': 'Your progress' },
         progressVars(),
         h('div', { class: 'level' },
           h('div', { class: 'bar', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(lvXp), 'aria-label': `Level ${level()} progress` }, h('span', { style: `width:${lvXp}%` })),
           h('span', null, `${100 - lvXp} XP to level ${level() + 1}`))),
       todayCard,
-      h('section', { 'aria-label': 'Your path' },
-        h('div', { class: 'section-title' }, h('h3', null, 'Your path'), h('span', { class: 'muted', style: 'font-size:14px' }, 'Week 1')),
+      h('section', { class: 'ask-card', 'aria-label': 'Ask Zara' },
+        h('div', { class: 'row' }, avatar(), h('div', { class: 'grow' }, h('strong', null, 'Have a question?'), h('span', { class: 'muted' }, ' Ask Zara anything simple about Python or AI.'))),
+        h('div', { class: 'chips' },
+          h('button', { class: 'chip-btn primary', type: 'button', onclick: () => openChat() }, icon('chat'), 'Ask Zara'),
+          sample ? suggestions().slice(0, 2).map((s) => h('button', { class: 'chip-btn', type: 'button', onclick: () => openChat(s) }, s)) : null)),
+      h('section', { 'aria-label': 'What Stockwise can do' },
+        h('div', { class: 'section-title' }, h('h3', null, 'What Stockwise can do'), h('span', { class: 'muted', style: 'font-size:14px' }, 'grows with each chapter')),
+        h('div', { style: 'height:10px' }), abilities),
+      h('section', { 'aria-label': 'Chapters' },
+        h('div', { class: 'section-title' }, h('h3', null, 'The chapters'), h('span', { class: 'muted', style: 'font-size:14px' }, 'Week 1')),
         h('div', { style: 'height:12px' }), path),
       h('section', { 'aria-label': 'Badges' }, h('h3', null, 'Badges'), h('div', { style: 'height:10px' }), badges),
       h('details', { class: 'how' },
         h('summary', null, 'How Python Steps works'),
         h('ul', null,
-          h('li', null, 'One short lesson a day, 10 to 15 minutes. Each lesson is a few small steps.'),
+          h('li', null, 'Each day is a chapter of the Stockwise story, 10 to 15 minutes long, built from small steps.'),
+          h('li', null, 'Every skill is taught through real AI-builder work: prompts, system prompts, tokens and cost, cleaning input, guardrails and debugging.'),
           h('li', null, 'Python runs right here on your phone. Nothing to install.'),
           h('li', null, 'Stuck? Tap Hint. Hints never cost points, and Show answer is there when you need it.'),
-          h('li', null, 'Ask Claude explains errors in plain words. It uses your own Claude account and sends only that step and your code.'),
-          h('li', null, 'Every lesson links Python back to Power Automate, so you build on what you already know.'),
+          h('li', null, 'Ask Zara answers your questions. Zara is Claude playing your mentor, using your own Claude account. It sends your question, your current step and your code, nothing else.'),
+          h('li', null, 'Everyone and everything in the story is made up. Never paste real work data into the app.'),
           h('li', null, 'This app runs a teaching version of Python made for these lessons. Its output and error messages were tested to match real Python 3.13.'))),
       h('footer', { class: 'foot' },
         h('span', { id: 'sync', class: 'sync ' + cloud.status }, SYNC_TEXT[cloud.status]),
@@ -3335,12 +3734,11 @@ textarea.code {
     { label: '" "', open: '"', close: '"', aria: 'Double quotes' },
     { label: 'f" "', open: 'f"', close: '"', aria: 'f-string' },
     { label: '{ }', open: '{', close: '}', aria: 'Curly braces' },
-    { label: '=', text: '=' }, { label: ':', text: ':' }, { label: '+', text: '+' }, { label: '-', text: '-' },
-    { label: '*', text: '*' }, { label: '/', text: '/' }, { label: '_', text: '_' }, { label: ',', text: ',' },
-    { label: '.', text: '.' }, { label: "'", text: "'" }, { label: '[ ]', open: '[', close: ']', aria: 'Square brackets' },
-    { label: '#', text: '# ', aria: 'Comment' }, { label: '<', text: '<' }, { label: '>', text: '>' },
+    { label: '=', text: '=' }, { label: '.', text: '.' }, { label: '_', text: '_' }, { label: ':', text: ':' },
+    { label: '+', text: '+' }, { label: '-', text: '-' }, { label: '*', text: '*' }, { label: '/', text: '/' },
+    { label: ',', text: ',' }, { label: "'", text: "'" }, { label: '"""', text: '"""', aria: 'Triple quotes' },
+    { label: '[ ]', open: '[', close: ']', aria: 'Square brackets' }, { label: '#', text: '# ', aria: 'Comment' },
   ];
-
   function insertAtCursor(ta, key) {
     ta.focus();
     const s = ta.selectionStart, e = ta.selectionEnd;
@@ -3353,7 +3751,6 @@ textarea.code {
     }
     ta.dispatchEvent(new Event('input', { bubbles: true }));
   }
-
   function buildEditor(st, li, si, onRun) {
     const gutter = h('div', { class: 'gutter', 'aria-hidden': 'true' });
     const ta = h('textarea', {
@@ -3387,7 +3784,6 @@ textarea.code {
       }, k.label)));
     return [h('div', { class: 'editor' }, gutter, ta), keys];
   }
-
   function errorPanel(err) {
     const title = ERROR_TITLES[err.type] || err.type;
     return h('div', { class: 'panel err', role: 'alert' },
@@ -3396,76 +3792,6 @@ textarea.code {
       err.message ? h('div', { class: 'err-msg' }, err.message) : null,
       err.lineText && err.lineText.trim() ? h('pre', { class: 'err-line' }, `${err.line} | ${err.lineText}`) : null,
       h('p', { class: 'tip' }, h('b', null, 'What it means: '), friendly(err)));
-  }
-
-  function aiPrompt(kind, lesson, step, st) {
-    const res = st.result;
-    let ran = 'They have not run it yet.';
-    if (res && res.error) ran = `When they ran it, Python stopped with an error on line ${res.error.line}: ${res.error.type}: ${res.error.message}`;
-    else if (res) ran = `When they ran it, the output was:\n${res.output || '(nothing)'}`;
-    const want = step.check && step.check.out ? `The step expects this exact output:\n${step.check.out}` : '';
-    return [
-      'You are a patient Python tutor inside a phone app called Python Steps.',
-      'The learner is an adult IT professional who builds automations in Microsoft Power Automate and Copilot Studio and finds code hard. Be warm, plain and brief.',
-      `Lesson: Day ${lesson.day}, "${lesson.title}". Step: "${step.title}". Task: ${String(step.text).replace(/\*\*/g, '')}`,
-      want,
-      'Their code:',
-      '```python',
-      st.code,
-      '```',
-      ran,
-      kind === 'hint'
-        ? 'Give ONE small hint that moves them one step closer. Point to the line to look at. Do not write the full corrected code.'
-        : 'Explain in plain words what is happening and why, pointing to the exact line. Then say what to change, without writing the full corrected program.',
-      'Use a Power Automate comparison only if it truly helps. Keep it under 90 words. No headings. Put code in backticks.',
-    ].filter(Boolean).join('\n');
-  }
-  const AI_ERRORS = {
-    rate_limited: 'Claude is busy or you have reached a usage limit. Try again in a little while.',
-    session_expired: 'Sign in to Claude again to use Ask Claude.',
-    refused: "Claude couldn't answer that one. Try the Hint button instead.",
-    empty_completion: "Claude couldn't answer that one. Try the Hint button instead.",
-    upstream_error: "Couldn't reach Claude. Check your connection and try again.",
-  };
-  async function askClaude(kind) {
-    const lesson = LESSONS[ui.li], step = lesson.steps[ui.si], st = stepState(ui.li, ui.si);
-    if (!sample || aiOff) return;
-    if (st.ai && st.ai.ctl) st.ai.ctl.abort();
-    const ctl = new AbortController();
-    st.ai = { text: '', busy: true, ctl, note: '' };
-    paintAI();
-    try {
-      await sample(aiPrompt(kind, lesson, step, st), {
-        modelTier: 'quick',
-        signal: ctl.signal,
-        onText: ({ text }) => { if (st.ai && st.ai.ctl === ctl) { st.ai.text = text; paintAI(); } },
-      });
-      if (st.ai && st.ai.ctl === ctl) { st.ai.busy = false; paintAI(); }
-    } catch (e) {
-      if (!st.ai || st.ai.ctl !== ctl) return;
-      st.ai.busy = false;
-      const code = e && e.code;
-      if (['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'].includes(code)) {
-        aiOff = true; st.ai = null; renderLesson(); toast('Ask Claude is turned off for this page.'); return;
-      }
-      if (code === 'refused') st.ai.text = '';
-      else st.ai.text = (e && e.text) || st.ai.text;
-      if (code !== 'cancelled') st.ai.note = AI_ERRORS[code] || AI_ERRORS.upstream_error;
-      paintAI();
-    }
-  }
-  function paintAI() {
-    const box = document.getElementById('ai-out');
-    if (!box) return;
-    const st = stepState(ui.li, ui.si);
-    const ai = st.ai;
-    box.replaceChildren();
-    if (!ai) return;
-    if (ai.text) box.append(fmtAnswer(ai.text));
-    else if (ai.busy) box.append(h('span', { class: 'muted' }, 'Thinking…'));
-    if (ai.note) box.append(h('p', { class: 'note' }, ai.note));
-    const stop = document.getElementById('ai-stop');
-    if (stop) stop.hidden = !ai.busy;
   }
 
   function runCurrent() {
@@ -3477,7 +3803,7 @@ textarea.code {
     if (st.verdict.ok && !st.passed) { st.passed = true; st.gained = completeStep(ui.li, ui.si); }
     renderLesson();
     const target = document.getElementById(st.verdict.ok ? 'feedback' : 'output') || document.getElementById('feedback');
-    if (target) target.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (target) target.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
   }
   function choose(i) {
     const lesson = LESSONS[ui.li], step = lesson.steps[ui.si], st = stepState(ui.li, ui.si);
@@ -3497,28 +3823,48 @@ textarea.code {
     render();
     window.scrollTo(0, 0);
   }
+  function lessonHeader(lesson, si) {
+    return h('header', { class: 'lbar' },
+      h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Back to the chapters', onclick: () => go('') }, icon('back')),
+      h('div', { class: 'lbar-title' },
+        h('strong', null, `Chapter ${lesson.day} · ${lesson.title}`),
+        h('div', { class: 'dots', 'aria-label': si < 0 ? 'Story introduction' : `Step ${si + 1} of ${lesson.steps.length}` },
+          h('i', { class: 'story' + (si < 0 ? ' now' : ' on') }),
+          lesson.steps.map((_, i) => h('i', { class: i === si ? 'now' : stepDone(ui.li, i) ? 'on' : '' })))),
+      h('button', { class: 'icon-btn ask-btn', type: 'button', 'aria-label': 'Ask Zara a question', onclick: () => openChat() }, icon('chat')));
+  }
+
+  function renderStory(lesson) {
+    const resume = Math.min(P.stepMax[lesson.id] || 0, lesson.steps.length - 1);
+    app.replaceChildren(
+      lessonHeader(lesson, -1),
+      h('article', { class: 'story', 'aria-label': `Chapter ${lesson.day} story` },
+        h('div', { class: 'cover' },
+          emblem(lesson.emblem),
+          h('p', { class: 'eyebrow' }, `Chapter ${lesson.day} · ${lesson.weekday}`),
+          h('h1', null, lesson.title),
+          h('p', { class: 'cover-skill' }, `Python today: ${lesson.skill} · ${lesson.minutes} min`)),
+        h('div', { class: 'scene' }, lesson.scene.map((p) => h('p', null, p))),
+        h('figure', { class: 'mentor' },
+          avatar(),
+          h('blockquote', null, h('p', null, `“${lesson.quote}”`), h('figcaption', null, 'Zara, lead engineer'))),
+        h('div', { class: 'notebook' }, h('b', null, 'Builder’s notebook'), h('p', null, lesson.why)),
+        h('div', { class: 'bridge' }, h('b', null, 'If you know Power Automate or Copilot Studio'), fmt(lesson.bridge))),
+      h('div', { class: 'actionbar' },
+        P.done[lesson.id] || !(P.stepMax[lesson.id] || 0)
+          ? h('button', { class: 'btn btn-primary', type: 'button', onclick: () => { ui.si = 0; renderLesson(); window.scrollTo(0, 0); } }, `Start chapter ${lesson.day}`, icon('next'))
+          : h('button', { class: 'btn btn-primary', type: 'button', onclick: () => { ui.si = resume; renderLesson(); window.scrollTo(0, 0); } }, `Continue at step ${resume + 1}`, icon('next'))));
+  }
 
   function renderLesson() {
     const lesson = LESSONS[ui.li];
+    if (ui.si < 0) { renderStory(lesson); return; }
     const si = ui.si;
     const step = lesson.steps[si];
     const st = stepState(ui.li, si);
     const done = stepDone(ui.li, si);
     const isQuiz = step.type === 'quiz';
     const isLast = si === lesson.steps.length - 1;
-
-    const header = h('header', { class: 'lbar' },
-      h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Back to your path', onclick: () => go('') }, icon('back')),
-      h('div', { class: 'lbar-title' },
-        h('strong', null, `Day ${lesson.day} · ${lesson.title}`),
-        h('div', { class: 'dots', 'aria-label': `Step ${si + 1} of ${lesson.steps.length}` },
-          lesson.steps.map((_, i) => h('i', { class: i === si ? 'now' : stepDone(ui.li, i) ? 'on' : '' })))),
-      h('span', { class: 'xp-pill', 'aria-label': `${P.xp} XP` }, `${P.xp} XP`));
-
-    const intro = si === 0 ? h('section', { class: 'intro', 'aria-label': "Today's idea" },
-      h('span', { class: 'eyebrow' }, "Today's idea"),
-      h('p', { style: 'font-size:18px' }, fmt(lesson.idea)),
-      h('div', { class: 'bridge' }, h('b', null, 'If you know Power Automate'), fmt(lesson.bridge))) : null;
 
     const body = [];
     const feedback = [];
@@ -3555,7 +3901,7 @@ textarea.code {
         const v = st.verdict;
         if (v && v.ok) {
           feedback.push(h('div', { class: 'panel good', id: 'feedback', role: 'status' },
-            h('div', { class: 'good-head' }, icon('check'), step.type === 'error' ? 'That is the error' : 'That works', st.gained ? h('span', { class: 'xp-gain' }, `+${st.gained} XP`) : null),
+            h('div', { class: 'good-head' }, icon('check'), step.type === 'error' ? 'That’s the error' : 'That works', st.gained ? h('span', { class: 'xp-gain' }, `+${st.gained} XP`) : null),
             h('p', null, fmt(step.explain))));
         } else if (v && v.reason !== 'error') {
           const box = h('div', { class: 'panel nope', id: 'feedback', role: 'status' }, h('p', null, v.message || 'Not yet.'));
@@ -3582,26 +3928,16 @@ textarea.code {
         tools.push(h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: () => { st.code = step.code || ''; st.result = null; st.verdict = null; clearDraft(ui.li, si); renderLesson(); } }, icon('reset'), 'Start over'));
       }
     }
-
-    let ai = null;
-    if (!isQuiz && sample && !aiOff) {
-      ai = h('div', { class: 'panel ai', 'aria-label': 'Ask Claude' },
-        h('div', { class: 'row' },
-          h('span', { class: 'label grow' }, 'Ask Claude'),
-          h('button', { class: 'btn-link', id: 'ai-stop', type: 'button', hidden: true, onclick: () => { if (st.ai && st.ai.ctl) st.ai.ctl.abort(); } }, 'Stop')),
-        h('div', { class: 'tools' },
-          st.result && st.result.error ? h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: () => askClaude('explain') }, icon('chat'), 'Explain this error') : null,
-          h('button', { class: 'btn btn-ghost btn-small', type: 'button', onclick: () => askClaude('hint') }, icon('chat'), st.result && !st.result.error && !st.passed ? 'Why is it not right?' : 'Give me a hint')),
-        h('div', { class: 'ai-out', id: 'ai-out', 'aria-live': 'polite' }),
-        h('span', { class: 'ai-small' }, 'Uses your Claude account. Sends only this step and your code.'));
-    }
+    const askRow = sample && !aiOff && !st.passed ? h('div', { class: 'ask-row' },
+      h('span', { class: 'muted' }, 'Stuck? Ask Zara:'),
+      suggestions().map((s) => h('button', { class: 'chip-btn', type: 'button', onclick: () => openChat(s) }, s))) : null;
 
     const actions = [];
     if (isQuiz) {
-      actions.push(h('button', { class: 'btn btn-primary', type: 'button', disabled: !(st.passed || done), onclick: nextStep }, isLast ? `Finish Day ${lesson.day}` : 'Next step', icon('next')));
+      actions.push(h('button', { class: 'btn btn-primary', type: 'button', disabled: !(st.passed || done), onclick: nextStep }, isLast ? `Finish chapter ${lesson.day}` : 'Next step', icon('next')));
     } else if (st.passed || done) {
       actions.push(h('button', { class: 'btn btn-ghost', type: 'button', onclick: runCurrent }, icon('play'), 'Run'));
-      actions.push(h('button', { class: 'btn btn-primary', type: 'button', onclick: nextStep }, isLast ? `Finish Day ${lesson.day}` : 'Next step', icon('next')));
+      actions.push(h('button', { class: 'btn btn-primary', type: 'button', onclick: nextStep }, isLast ? `Finish chapter ${lesson.day}` : 'Next step', icon('next')));
     } else {
       if (step.hints && st.hint < step.hints.length) {
         actions.push(h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => { st.hint++; renderLesson(); const hs = document.querySelectorAll('.hint'); if (hs.length) hs[hs.length - 1].scrollIntoView({ block: 'nearest' }); } }, icon('bulb'), 'Hint'));
@@ -3610,41 +3946,41 @@ textarea.code {
     }
 
     app.replaceChildren(...[
-      header,
-      intro,
+      lessonHeader(lesson, si),
       h('section', { class: 'step', 'aria-label': `Step ${si + 1}` },
         h('div', { class: 'chip-row' }, h('span', { class: 'chip' }, TYPE_LABEL[step.type] || 'Step'), h('span', { class: 'muted', style: 'font-size:15px' }, `Step ${si + 1} of ${lesson.steps.length}`)),
         h('h2', null, step.title),
+        step.say ? h('div', { class: 'say' }, avatar(), h('p', null, step.say)) : null,
         h('p', { class: 'step-text' }, fmt(step.text)),
         body,
         hints.length ? h('div', { class: 'hints' }, hints) : null,
         feedback,
         tools.length ? h('div', { class: 'tools' }, tools) : null,
-        ai),
+        askRow),
       h('div', { class: 'actionbar' }, actions),
     ].filter(Boolean));
-    paintAI();
   }
 
   // ------------------------------------------------------------ finish
   function renderFinish() {
     const lesson = LESSONS[ui.li];
     const next = LESSONS[ui.li + 1];
-    const svg = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     const mark = h('div', { class: 'finish-mark', 'aria-hidden': 'true' });
-    mark.innerHTML = svg;
-    app.replaceChildren(h('section', { class: 'finish', 'aria-label': 'Day complete' },
+    mark.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    app.replaceChildren(h('section', { class: 'finish', 'aria-label': 'Chapter complete' },
       mark,
-      h('p', { class: 'eyebrow' }, `Day ${lesson.day} complete`),
+      h('p', { class: 'eyebrow' }, `Chapter ${lesson.day} complete`),
       h('h1', null, lesson.title),
+      h('p', { class: 'unlocked' }, icon('check'), `Stockwise ${lesson.ability}`),
+      h('div', { class: 'scene finish-scene' }, h('p', null, lesson.outro)),
       h('div', { class: 'finish-stats' },
-        h('div', null, h('strong', null, `+${ui.sessionXp}`), h('span', null, 'XP this lesson')),
-        h('div', null, h('strong', null, String(streakNow())), h('span', null, streakNow() === 1 ? 'day streak' : 'day streak')),
+        h('div', null, h('strong', null, `+${ui.sessionXp}`), h('span', null, 'XP this chapter')),
+        h('div', null, h('strong', null, String(streakNow())), h('span', null, 'day streak')),
         h('div', null, h('strong', null, String(level())), h('span', null, 'level'))),
       ui.newBadges.length ? h('p', null, 'New badge: ', h('strong', null, ui.newBadges.map((b) => b.name).join(', '))) : null,
-      next ? h('p', { class: 'muted' }, `Next up: Day ${next.day}, ${next.title}. Coming back tomorrow keeps your streak going.`) : h('p', { class: 'muted' }, 'That was the last lesson of Week 1. Ask Claude in chat to add Week 2.'),
-      next ? h('button', { class: 'btn btn-primary', type: 'button', onclick: () => go('#day-' + next.day) }, `Start Day ${next.day} now`, icon('next')) : null,
-      h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => go('') }, 'Back to your path')));
+      next ? h('p', { class: 'muted' }, `Next: chapter ${next.day}, “${next.title}”. Coming back tomorrow keeps your streak going.`) : h('p', { class: 'muted' }, 'That was the last chapter of Week 1. Ask Claude in chat to add Week 2.'),
+      next ? h('button', { class: 'btn btn-primary', type: 'button', onclick: () => go('#day-' + next.day) }, `Read chapter ${next.day} now`, icon('next')) : null,
+      h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => go('') }, 'Back to the chapters')));
   }
 
   // ------------------------------------------------------------ start
